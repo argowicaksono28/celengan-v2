@@ -150,11 +150,11 @@ export function TransactionSheet({
       {/* Sheet — Mobile: bottom sheet, Desktop: right panel */}
       <div
         className={cn(
-          "fixed z-50 bg-white overflow-y-auto",
-          // Mobile
-          "md:hidden bottom-0 left-0 right-0 rounded-t-[20px] max-h-[85vh] sheet-content",
-          // Desktop
-          "hidden md:flex md:flex-col md:top-0 md:right-0 md:bottom-0 md:w-96 md:rounded-none md:max-h-full md:shadow-modal animate-slide-up"
+          "sheet-content fixed z-50 bg-white flex flex-col overflow-hidden",
+          // Mobile: bottom sheet
+          "bottom-0 left-0 right-0 rounded-t-[20px] max-h-[85vh]",
+          // Desktop: right panel overrides
+          "md:top-0 md:left-auto md:right-0 md:bottom-0 md:w-96 md:max-h-full md:rounded-none md:shadow-modal"
         )}
       >
         {/* Handle bar (mobile only) */}
