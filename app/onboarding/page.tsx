@@ -5,11 +5,19 @@ export const dynamic = "force-dynamic";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Check, ChevronRight, Sparkles, Wallet, Target, Receipt } from "lucide-react";
+import * as Icons from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatRupiah, parseRupiahInput } from "@/lib/format";
 import { createClient } from "@/lib/supabase/client";
 import { QUICK_ACCOUNT_CHIPS } from "@/lib/constants";
 import { toast } from "sonner";
+
+function LucideIcon({ name, size = 16, className }: { name: string; size?: number; className?: string }) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const IconComp = (Icons as any)[name];
+  if (!IconComp) return <span className={className} style={{ width: size, height: size, display: "inline-block" }} />;
+  return <IconComp size={size} className={className} />;
+}
 
 interface AccountDraft {
   chipName: string;
@@ -200,9 +208,9 @@ export default function OnboardingPage() {
             </div>
 
             {/* Total balance animated */}
-            {selectedChips.length >= 2 && (
-              <div className="my-4 p-4 bg-primary-light rounded-card text-center animate-fade-in">
-                <p className="text-xs text-primary font-medium uppercase tracking-wide mb-1">Total Saldo</p>
+            {selectedChips.length >= 1 && (
+              <div className="my-4 p-4 bg-primary-light rounded-card text-center">
+                <p className="text-[10px] text-primary font-semibold uppercase tracking-widest mb-1">Total Kekayaan Bersih</p>
                 <p className="text-2xl font-bold text-primary tabular-nums">{formatRupiah(totalAnimated)}</p>
               </div>
             )}
@@ -228,6 +236,28 @@ export default function OnboardingPage() {
                 );
               })}
             </div>
+
+            {/* Selected Account preview */}
+            {accountDrafts.length > 0 && (() => {
+              const last = accountDrafts[accountDrafts.length - 1];
+              const chip = QUICK_ACCOUNT_CHIPS.find((c) => c.name === last.chipName);
+              return (
+                <div className="mb-3 p-4 bg-white rounded-card border-2 border-primary/30 shadow-card">
+                  <p className="text-[10px] font-semibold text-[#64748B] uppercase tracking-widest mb-2">Selected Account</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-primary-light flex items-center justify-center flex-shrink-0">
+                      <LucideIcon name={chip?.icon ?? "Wallet"} size={16} className="text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-[#0F172A]">{last.name}</p>
+                      <p className="text-xs text-primary font-semibold tabular-nums">
+                        {formatRupiah(parseRupiahInput(last.balance) ?? 0)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* Balance inputs for selected accounts */}
             {accountDrafts.length > 0 && (

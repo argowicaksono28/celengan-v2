@@ -187,7 +187,7 @@ export default function BudgetGoalsPage() {
   const nearLimit = activeGoalCount >= FREE_GOAL_WARN_AT;
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 pb-24">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold text-[#0F172A]">Budget & Goals</h1>
       </div>
@@ -321,7 +321,7 @@ export default function BudgetGoalsPage() {
       </div>
 
       {/* === GOALS SECTION === */}
-      <div>
+      <div id="goals-section">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <h2 className="text-base font-semibold text-[#0F172A]">Goals Tabungan</h2>
@@ -470,7 +470,9 @@ export default function BudgetGoalsPage() {
                         <span className="text-xs text-[#64748B] tabular-nums">
                           {formatRupiah(goal.saved_amount)} / {formatRupiah(goal.target_amount)}
                         </span>
-                        <span className="text-xs font-semibold text-primary">{Math.round(pct * 100)}%</span>
+                        <span className="inline-flex items-center rounded-chip bg-primary-light text-primary text-xs font-bold px-2 py-0.5">
+                          {Math.round(pct * 100)}%
+                        </span>
                       </div>
                       <ProgressBar value={goal.saved_amount} max={goal.target_amount} />
                       {(days !== null || monthly !== null) && (
@@ -495,6 +497,27 @@ export default function BudgetGoalsPage() {
           </div>
         )}
       </div>
+      {/* Fixed bottom action bar */}
+      {!showGoalForm && (
+        <div className="fixed bottom-0 left-0 right-0 z-20 bg-white border-t border-c-border px-4 py-3 flex gap-3 md:hidden">
+          <button
+            onClick={() => {
+              const el = document.getElementById("goals-section");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="flex-1 py-3 border border-primary text-primary font-semibold rounded-btn text-sm hover:bg-primary-light transition-colors"
+          >
+            Lihat Goals
+          </button>
+          <button
+            onClick={() => { setShowGoalForm(true); }}
+            disabled={atLimit}
+            className="flex-1 py-3 hero-gradient text-white font-semibold rounded-btn text-sm hover:opacity-90 disabled:opacity-40 transition-opacity shadow-fab"
+          >
+            + Tambah Goal
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, TrendingUp, TrendingDown, Wallet, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, TrendingUp, Wallet, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatRupiah, formatRelativeDate, getDayGreeting, getCurrentMonthYear } from "@/lib/format";
 import { MONTH_NAMES_ID } from "@/lib/constants";
@@ -137,33 +137,32 @@ export default function DashboardPage() {
           </button>
         </div>
 
-        {/* Total balance */}
-        <div className="text-center mb-5">
-          <p className="text-xs font-semibold uppercase tracking-widest opacity-70 mb-1">Total Saldo</p>
-          <p className="text-4xl font-bold tabular-nums">{formatRupiah(data.totalBalance)}</p>
+        {/* Primary: Expense */}
+        <div className="text-center mb-3">
+          <p className="text-[10px] font-semibold uppercase tracking-widest opacity-70 mb-1">Pengeluaran Bulan Ini</p>
+          <p className="text-4xl font-bold tabular-nums">{formatRupiah(data.totalExpense)}</p>
         </div>
 
-        {/* Income / Expense */}
-        <div className="flex gap-3">
-          <div className="flex-1 bg-white/15 backdrop-blur-sm rounded-xl p-3 flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-              <TrendingUp size={15} />
-            </div>
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-wider opacity-70">Masuk</p>
-              <p className="text-sm font-bold tabular-nums">{formatRupiah(data.totalIncome)}</p>
-            </div>
-          </div>
-          <div className="flex-1 bg-white/15 backdrop-blur-sm rounded-xl p-3 flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-              <TrendingDown size={15} />
-            </div>
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-wider opacity-70">Keluar</p>
-              <p className="text-sm font-bold tabular-nums">{formatRupiah(data.totalExpense)}</p>
-            </div>
-          </div>
+        {/* Secondary: Income */}
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <TrendingUp size={13} className="opacity-60" />
+          <span className="text-xs opacity-70">Pemasukan:</span>
+          <span className="text-sm font-bold tabular-nums">{formatRupiah(data.totalIncome)}</span>
         </div>
+
+        {/* Sisa budget strip */}
+        {overallBudget && overallBudget.amount > overallBudget.spent && (
+          <div className="bg-success/20 rounded-xl px-4 py-2.5 flex items-center justify-between">
+            <span className="text-xs font-semibold opacity-90">Sisa budget</span>
+            <span className="text-sm font-bold tabular-nums">{formatRupiah(overallBudget.amount - overallBudget.spent)}</span>
+          </div>
+        )}
+        {overallBudget && overallBudget.spent >= overallBudget.amount && (
+          <div className="bg-white/10 rounded-xl px-4 py-2.5 flex items-center justify-between">
+            <span className="text-xs font-semibold opacity-90">Budget habis</span>
+            <span className="text-sm font-bold tabular-nums text-red-300">-{formatRupiah(overallBudget.spent - overallBudget.amount)}</span>
+          </div>
+        )}
       </div>
 
       {/* Account chips */}

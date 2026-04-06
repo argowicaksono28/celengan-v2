@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { formatRupiah } from "@/lib/format";
 import { toast } from "sonner";
@@ -164,7 +165,7 @@ export function TransactionSheet({
 
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-3.5 border-b border-c-border">
-          <h2 className="text-lg font-bold text-[#0F172A]">Tambah Transaksi</h2>
+          <h2 className="text-lg font-bold text-[#0F172A]">Transaksi Baru</h2>
           <button
             onClick={onClose}
             aria-label="Tutup"
@@ -196,10 +197,10 @@ export function TransactionSheet({
           </div>
 
           {/* 2. Amount */}
-          <div>
-            <label className="block text-xs font-semibold text-[#64748B] uppercase tracking-wide mb-2">Jumlah</label>
-            <div className="flex items-center border-2 border-c-border rounded-btn bg-white focus-within:border-primary focus-within:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] transition-all px-4 py-3 gap-2">
-              <span className="text-[#94A3B8] font-semibold text-2xl flex-shrink-0">Rp</span>
+          <div className="text-center">
+            <label className="block text-xs font-semibold text-[#64748B] uppercase tracking-widest mb-3">Nominal Transaksi</label>
+            <div className="flex items-center justify-center border-2 border-c-border rounded-btn bg-white focus-within:border-primary focus-within:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] transition-all px-4 py-4 gap-2">
+              <span className="text-[#94A3B8] font-semibold text-3xl flex-shrink-0">Rp</span>
               <input
                 ref={amountRef}
                 type="text"
@@ -207,17 +208,20 @@ export function TransactionSheet({
                 value={numericAmount > 0 ? numericAmount.toLocaleString("id-ID") : ""}
                 onChange={handleAmountInput}
                 placeholder="0"
-                className="flex-1 text-2xl font-bold text-[#0F172A] tabular-nums outline-none bg-transparent"
+                className="text-3xl font-bold text-[#0F172A] tabular-nums outline-none bg-transparent text-center min-w-0 w-full"
               />
             </div>
             {numericAmount > 0 && (
-              <p className="text-xs text-[#64748B] mt-1.5 px-1">{formatRupiah(numericAmount)}</p>
+              <p className="text-xs text-[#64748B] mt-1.5">{formatRupiah(numericAmount)}</p>
             )}
           </div>
 
           {/* 3. Category Chips */}
           <div>
-            <label className="block text-xs font-semibold text-[#64748B] uppercase tracking-wide mb-2">Kategori</label>
+            <div className="flex items-center justify-between mb-2">
+              <label className="text-xs font-semibold text-[#64748B] uppercase tracking-wide">Kategori</label>
+              <Link href="/transaksi" className="text-xs font-semibold text-primary hover:text-primary-dark transition-colors">Lihat Semua</Link>
+            </div>
             <div className="chips-row">
               {filteredCats.map((cat) => (
                 <button
@@ -237,37 +241,29 @@ export function TransactionSheet({
             </div>
           </div>
 
-          {/* 4. Account Selector */}
-          <div>
-            <label className="block text-xs font-semibold text-[#64748B] uppercase tracking-wide mb-2">Akun</label>
-            <div className="chips-row">
-              {accounts.map((acc) => (
-                <button
-                  key={acc.id}
-                  onClick={() => setAccountId(acc.id)}
-                  className={cn(
-                    "btn-press cursor-pointer flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-chip text-sm font-medium transition-all border",
-                    accountId === acc.id
-                      ? "border-primary bg-primary-light text-primary"
-                      : "border-c-border bg-white text-[#334155] hover:border-primary/40"
-                  )}
-                >
-                  <LucideIcon name={acc.icon} size={14} />
-                  {acc.name}
-                </button>
-              ))}
+          {/* 4 & 5. Date + Account — 2-column grid */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-semibold text-[#64748B] uppercase tracking-wide mb-2">Tanggal</label>
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-full px-3 py-2.5 border-2 border-c-border rounded-btn text-[#0F172A] text-sm focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] transition-all bg-white"
+              />
             </div>
-          </div>
-
-          {/* 5. Date */}
-          <div>
-            <label className="block text-xs font-semibold text-[#64748B] uppercase tracking-wide mb-2">Tanggal</label>
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="w-full px-4 py-3 border-2 border-c-border rounded-btn text-[#0F172A] text-base focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] transition-all bg-white"
-            />
+            <div>
+              <label className="block text-xs font-semibold text-[#64748B] uppercase tracking-wide mb-2">Metode</label>
+              <select
+                value={accountId}
+                onChange={(e) => setAccountId(e.target.value)}
+                className="w-full px-3 py-2.5 border-2 border-c-border rounded-btn text-[#0F172A] text-sm focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] transition-all bg-white"
+              >
+                {accounts.map((acc) => (
+                  <option key={acc.id} value={acc.id}>{acc.name}</option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {/* 6. Note (optional) */}
