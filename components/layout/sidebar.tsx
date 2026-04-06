@@ -40,22 +40,19 @@ export function Sidebar({ userName, userEmail }: SidebarProps) {
     pathname === href || pathname.startsWith(href + "/");
 
   return (
-    <aside
-      className="hidden md:flex flex-col fixed top-0 left-0 h-screen w-60 z-30 bg-white border-r border-[#E0E0E0]"
-      style={{ boxShadow: "1px 0 0 #E0E0E0" }}
-    >
+    <aside className="hidden md:flex flex-col fixed top-0 left-0 h-screen w-60 z-30 bg-white border-r border-c-border">
       {/* Logo */}
-      <div className="flex items-center h-16 px-5 border-b border-[#E0E0E0]">
+      <div className="flex items-center h-16 px-5 border-b border-c-border">
         <Link href="/dashboard" className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 shadow-fab">
             <span className="text-white font-bold text-sm">C</span>
           </div>
-          <span className="text-[#1A1A1A] font-bold text-xl tracking-tight text-primary">Celengan</span>
+          <span className="font-bold text-xl tracking-tight text-primary">Celengan</span>
         </Link>
       </div>
 
       {/* Primary Navigation */}
-      <nav className="flex-1 py-4 overflow-y-auto">
+      <nav className="flex-1 py-3 overflow-y-auto">
         <ul className="space-y-0.5 px-3">
           {PRIMARY_NAV.map(({ href, icon: Icon, label }) => {
             const active = isActive(href);
@@ -64,10 +61,10 @@ export function Sidebar({ userName, userEmail }: SidebarProps) {
                 <Link
                   href={href}
                   className={cn(
-                    "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors",
+                    "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors cursor-pointer",
                     active
-                      ? "bg-primary-light text-primary"
-                      : "text-[#6B6B6B] hover:bg-surface hover:text-[#1A1A1A]"
+                      ? "bg-primary-light text-primary font-semibold"
+                      : "text-[#64748B] hover:bg-surface-2 hover:text-[#0F172A]"
                   )}
                 >
                   <Icon size={18} strokeWidth={active ? 2.5 : 1.8} className="flex-shrink-0" />
@@ -79,8 +76,8 @@ export function Sidebar({ userName, userEmail }: SidebarProps) {
         </ul>
 
         {/* Separator + More */}
-        <div className="mt-6 pt-4 border-t border-[#E0E0E0] mx-3">
-          <p className="text-xs font-semibold text-[#6B6B6B] uppercase tracking-wider px-3 mb-2">Lainnya</p>
+        <div className="mt-5 pt-4 border-t border-c-border mx-3">
+          <p className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest px-3 mb-2">Lainnya</p>
           <ul className="space-y-0.5">
             {SECONDARY_NAV.map(({ href, icon: Icon, label }) => {
               const active = isActive(href);
@@ -89,10 +86,10 @@ export function Sidebar({ userName, userEmail }: SidebarProps) {
                   <Link
                     href={href}
                     className={cn(
-                      "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors",
+                      "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors cursor-pointer",
                       active
-                        ? "bg-primary-light text-primary"
-                        : "text-[#6B6B6B] hover:bg-surface hover:text-[#1A1A1A]"
+                        ? "bg-primary-light text-primary font-semibold"
+                        : "text-[#64748B] hover:bg-surface-2 hover:text-[#0F172A]"
                     )}
                   >
                     <Icon size={18} strokeWidth={active ? 2.5 : 1.8} className="flex-shrink-0" />
@@ -106,21 +103,21 @@ export function Sidebar({ userName, userEmail }: SidebarProps) {
       </nav>
 
       {/* User + Logout */}
-      <div className="border-t border-[#E0E0E0] px-3 py-4">
+      <div className="border-t border-c-border px-3 py-4">
         {userName && (
-          <div className="flex items-center gap-3 px-3 py-2 mb-1">
-            <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center flex-shrink-0 text-primary font-semibold text-sm">
+          <div className="flex items-center gap-3 px-3 py-2 mb-1 rounded-xl">
+            <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center flex-shrink-0 text-primary font-bold text-sm">
               {userName.charAt(0).toUpperCase()}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-[#1A1A1A] truncate">{userName}</p>
-              {userEmail && <p className="text-xs text-[#6B6B6B] truncate">{userEmail}</p>}
+              <p className="text-sm font-semibold text-[#0F172A] truncate">{userName}</p>
+              {userEmail && <p className="text-xs text-[#64748B] truncate">{userEmail}</p>}
             </div>
           </div>
         )}
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#6B6B6B] hover:bg-danger-light hover:text-danger transition-colors"
+          className="cursor-pointer w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#64748B] hover:bg-danger-light hover:text-danger transition-colors"
         >
           <LogOut size={18} />
           Keluar

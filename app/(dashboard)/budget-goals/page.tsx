@@ -189,24 +189,24 @@ export default function BudgetGoalsPage() {
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-[#1A1A1A]">Budget & Goals</h1>
+        <h1 className="text-xl font-bold text-[#0F172A]">Budget & Goals</h1>
       </div>
 
       {/* Month nav */}
-      <div className="flex items-center justify-between bg-white rounded-card px-4 py-2 border border-[#E0E0E0] shadow-sm">
-        <button onClick={prevMonth} className="p-1.5 rounded-full hover:bg-surface transition-colors">
-          <ChevronLeft size={18} className="text-[#6B6B6B]" />
+      <div className="flex items-center justify-between bg-white rounded-card px-4 py-2 border border-c-border shadow-card">
+        <button onClick={prevMonth} className="p-1.5 rounded-full hover:bg-surface-2 transition-colors">
+          <ChevronLeft size={18} className="text-[#64748B]" />
         </button>
-        <span className="text-sm font-semibold text-[#1A1A1A]">{MONTH_NAMES_ID[month - 1]} {year}</span>
-        <button onClick={nextMonth} disabled={isCurrentMonth} className="p-1.5 rounded-full hover:bg-surface transition-colors disabled:opacity-30">
-          <ChevronRight size={18} className="text-[#6B6B6B]" />
+        <span className="text-sm font-semibold text-[#0F172A]">{MONTH_NAMES_ID[month - 1]} {year}</span>
+        <button onClick={nextMonth} disabled={isCurrentMonth} className="p-1.5 rounded-full hover:bg-surface-2 transition-colors disabled:opacity-30">
+          <ChevronRight size={18} className="text-[#64748B]" />
         </button>
       </div>
 
       {/* === BUDGET SECTION === */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-base font-semibold text-[#1A1A1A]">Budget</h2>
+          <h2 className="text-base font-semibold text-[#0F172A]">Budget</h2>
           <button
             onClick={() => setShowBudgetForm(true)}
             className="flex items-center gap-1 text-xs text-primary font-medium hover:underline"
@@ -234,17 +234,17 @@ export default function BudgetGoalsPage() {
         })()}
 
         {showBudgetForm && (
-          <div className="bg-white rounded-card border border-[#E0E0E0] p-4 mb-3 space-y-3">
+          <div className="bg-white rounded-card border border-c-border p-4 mb-3 space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold text-[#1A1A1A]">Budget Baru</p>
-              <button onClick={() => setShowBudgetForm(false)}><X size={16} className="text-[#6B6B6B]" /></button>
+              <p className="text-sm font-semibold text-[#0F172A]">Budget Baru</p>
+              <button onClick={() => setShowBudgetForm(false)}><X size={16} className="text-[#64748B]" /></button>
             </div>
             <div>
-              <label className="text-xs font-medium text-[#6B6B6B] mb-1 block">Kategori (kosongkan = keseluruhan)</label>
+              <label className="text-xs font-medium text-[#64748B] mb-1 block">Kategori (kosongkan = keseluruhan)</label>
               <select
                 value={budgetCategoryId ?? ""}
                 onChange={(e) => setBudgetCategoryId(e.target.value || null)}
-                className="w-full px-3 py-2 border border-[#E0E0E0] rounded-btn text-sm text-[#1A1A1A] focus:outline-none focus:border-primary bg-white"
+                className="w-full px-3 py-2 border border-c-border rounded-btn text-sm text-[#0F172A] focus:outline-none focus:border-primary bg-white"
               >
                 <option value="">Keseluruhan</option>
                 {categories.map((c) => (
@@ -253,16 +253,16 @@ export default function BudgetGoalsPage() {
               </select>
             </div>
             <div>
-              <label className="text-xs font-medium text-[#6B6B6B] mb-1 block">Jumlah Budget</label>
-              <div className="flex items-center border border-[#E0E0E0] rounded-btn px-3 py-2 gap-1 focus-within:border-primary">
-                <span className="text-sm text-[#6B6B6B]">Rp</span>
+              <label className="text-xs font-medium text-[#64748B] mb-1 block">Jumlah Budget</label>
+              <div className="flex items-center border border-c-border rounded-btn px-3 py-2 gap-1 focus-within:border-primary">
+                <span className="text-sm text-[#64748B]">Rp</span>
                 <input
                   type="text"
                   inputMode="numeric"
                   value={budgetAmount ? parseInt(budgetAmount.replace(/\D/g,"")).toLocaleString("id-ID") : ""}
                   onChange={(e) => setBudgetAmount(e.target.value.replace(/\D/g,""))}
                   placeholder="0"
-                  className="flex-1 text-sm font-bold text-[#1A1A1A] tabular-nums outline-none bg-transparent"
+                  className="flex-1 text-sm font-bold text-[#0F172A] tabular-nums outline-none bg-transparent"
                   autoFocus
                 />
               </div>
@@ -279,10 +279,10 @@ export default function BudgetGoalsPage() {
 
         {/* Overall budget progress */}
         {overallBudget && (
-          <div className="bg-white rounded-card border border-[#E0E0E0] shadow-sm p-4 mb-2">
+          <div className="bg-white rounded-card border border-c-border shadow-card p-4 mb-2">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-[#1A1A1A]">Keseluruhan</span>
-              <span className="text-xs text-[#6B6B6B] tabular-nums">
+              <span className="text-sm font-medium text-[#0F172A]">Keseluruhan</span>
+              <span className="text-xs text-[#64748B] tabular-nums">
                 {formatRupiah(overallBudget.spent)} / {formatRupiah(overallBudget.amount)}
               </span>
             </div>
@@ -293,22 +293,22 @@ export default function BudgetGoalsPage() {
         {/* Category budgets */}
         {loading ? (
           <div className="space-y-2">
-            {[1,2].map((i) => <div key={i} className="h-16 bg-white rounded-card border border-[#E0E0E0] animate-pulse" />)}
+            {[1,2].map((i) => <div key={i} className="h-16 bg-white rounded-card border border-c-border animate-pulse" />)}
           </div>
         ) : budgets.length === 0 && !overallBudget ? (
           <EmptyState icon="Target" title="Belum ada budget" description="Buat budget untuk mengontrol pengeluaran" compact />
         ) : (
           <div className="space-y-2">
             {budgets.map((b) => (
-              <div key={b.id} className="bg-white rounded-card border border-[#E0E0E0] shadow-sm p-4">
+              <div key={b.id} className="bg-white rounded-card border border-c-border shadow-card p-4">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
-                    <LucideIcon name={b.category!.icon} size={14} className="text-[#6B6B6B]" />
-                    <span className="text-sm font-medium text-[#1A1A1A]">{b.category!.name}</span>
+                    <LucideIcon name={b.category!.icon} size={14} className="text-[#64748B]" />
+                    <span className="text-sm font-medium text-[#0F172A]">{b.category!.name}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-[#6B6B6B] tabular-nums">{formatRupiah(b.spent)} / {formatRupiah(b.amount)}</span>
-                    <button onClick={() => handleDeleteBudget(b.id)} className="text-[#E0E0E0] hover:text-danger transition-colors">
+                    <span className="text-xs text-[#64748B] tabular-nums">{formatRupiah(b.spent)} / {formatRupiah(b.amount)}</span>
+                    <button onClick={() => handleDeleteBudget(b.id)} className="text-[#CBD5E1] hover:text-danger transition-colors">
                       <Trash2 size={13} />
                     </button>
                   </div>
@@ -324,7 +324,7 @@ export default function BudgetGoalsPage() {
       <div>
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <h2 className="text-base font-semibold text-[#1A1A1A]">Goals Tabungan</h2>
+            <h2 className="text-base font-semibold text-[#0F172A]">Goals Tabungan</h2>
             <Badge variant="neutral">{activeGoalCount}/{FREE_GOAL_LIMIT}</Badge>
           </div>
           {!atLimit && (
@@ -351,10 +351,10 @@ export default function BudgetGoalsPage() {
         )}
 
         {showGoalForm && (
-          <div className="bg-white rounded-card border border-[#E0E0E0] p-4 mb-3 space-y-3">
+          <div className="bg-white rounded-card border border-c-border p-4 mb-3 space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold text-[#1A1A1A]">Goal Baru</p>
-              <button onClick={() => setShowGoalForm(false)}><X size={16} className="text-[#6B6B6B]" /></button>
+              <p className="text-sm font-semibold text-[#0F172A]">Goal Baru</p>
+              <button onClick={() => setShowGoalForm(false)}><X size={16} className="text-[#64748B]" /></button>
             </div>
             {/* Icon picker */}
             <div className="flex flex-wrap gap-2">
@@ -364,7 +364,7 @@ export default function BudgetGoalsPage() {
                   onClick={() => setGoalIcon(ic)}
                   className={cn(
                     "w-9 h-9 rounded-btn text-xl flex items-center justify-center border-2 transition-all",
-                    goalIcon === ic ? "border-primary bg-primary-light" : "border-transparent hover:border-[#E0E0E0]"
+                    goalIcon === ic ? "border-primary bg-primary-light" : "border-transparent hover:border-c-border"
                   )}
                 >
                   {ic}
@@ -376,50 +376,50 @@ export default function BudgetGoalsPage() {
               value={goalName}
               onChange={(e) => setGoalName(e.target.value.slice(0, 40))}
               placeholder="Nama goal (contoh: Beli iPhone)"
-              className="w-full px-3 py-2 border border-[#E0E0E0] rounded-btn text-sm focus:outline-none focus:border-primary"
+              className="w-full px-3 py-2 border border-c-border rounded-btn text-sm focus:outline-none focus:border-primary"
               autoFocus
             />
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="text-xs text-[#6B6B6B] mb-1 block">Target</label>
-                <div className="flex items-center border border-[#E0E0E0] rounded-btn px-3 py-2 gap-1 focus-within:border-primary">
-                  <span className="text-xs text-[#6B6B6B]">Rp</span>
+                <label className="text-xs text-[#64748B] mb-1 block">Target</label>
+                <div className="flex items-center border border-c-border rounded-btn px-3 py-2 gap-1 focus-within:border-primary">
+                  <span className="text-xs text-[#64748B]">Rp</span>
                   <input
                     type="text" inputMode="numeric"
                     value={goalTarget ? parseInt(goalTarget.replace(/\D/g,"")).toLocaleString("id-ID") : ""}
                     onChange={(e) => setGoalTarget(e.target.value.replace(/\D/g,""))}
                     placeholder="0"
-                    className="flex-1 text-sm font-bold text-[#1A1A1A] tabular-nums outline-none bg-transparent"
+                    className="flex-1 text-sm font-bold text-[#0F172A] tabular-nums outline-none bg-transparent"
                   />
                 </div>
               </div>
               <div>
-                <label className="text-xs text-[#6B6B6B] mb-1 block">Sudah ditabung</label>
-                <div className="flex items-center border border-[#E0E0E0] rounded-btn px-3 py-2 gap-1 focus-within:border-primary">
-                  <span className="text-xs text-[#6B6B6B]">Rp</span>
+                <label className="text-xs text-[#64748B] mb-1 block">Sudah ditabung</label>
+                <div className="flex items-center border border-c-border rounded-btn px-3 py-2 gap-1 focus-within:border-primary">
+                  <span className="text-xs text-[#64748B]">Rp</span>
                   <input
                     type="text" inputMode="numeric"
                     value={goalSaved ? parseInt(goalSaved.replace(/\D/g,"")).toLocaleString("id-ID") : ""}
                     onChange={(e) => setGoalSaved(e.target.value.replace(/\D/g,""))}
                     placeholder="0"
-                    className="flex-1 text-sm font-bold text-[#1A1A1A] tabular-nums outline-none bg-transparent"
+                    className="flex-1 text-sm font-bold text-[#0F172A] tabular-nums outline-none bg-transparent"
                   />
                 </div>
               </div>
             </div>
             <div>
-              <label className="text-xs text-[#6B6B6B] mb-1 block">Deadline (opsional)</label>
+              <label className="text-xs text-[#64748B] mb-1 block">Deadline (opsional)</label>
               <input
                 type="date"
                 value={goalDeadline}
                 onChange={(e) => setGoalDeadline(e.target.value)}
-                className="w-full px-3 py-2 border border-[#E0E0E0] rounded-btn text-sm focus:outline-none focus:border-primary"
+                className="w-full px-3 py-2 border border-c-border rounded-btn text-sm focus:outline-none focus:border-primary"
               />
             </div>
             <button
               onClick={handleSaveGoal}
               disabled={saving || !goalName || !goalTarget}
-              className="w-full py-2.5 bg-primary rounded-btn text-sm font-semibold text-white hover:bg-primary-dark disabled:bg-[#E0E0E0] disabled:text-[#6B6B6B] transition-colors"
+              className="w-full py-2.5 bg-primary rounded-btn text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-50 transition-colors"
             >
               {saving ? "Menyimpan..." : "Buat Goal"}
             </button>
@@ -443,12 +443,12 @@ export default function BudgetGoalsPage() {
               const monthly = (goal.deadline && remaining > 0) ? monthlySavingsNeeded(remaining, goal.deadline) : null;
 
               return (
-                <div key={goal.id} className="bg-white rounded-card border border-[#E0E0E0] shadow-sm p-4">
+                <div key={goal.id} className="bg-white rounded-card border border-c-border shadow-card p-4">
                   <div className="flex items-start gap-3">
                     <div className="text-2xl flex-shrink-0 mt-0.5">{goal.icon}</div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1">
-                        <p className="text-sm font-semibold text-[#1A1A1A] truncate">{goal.name}</p>
+                        <p className="text-sm font-semibold text-[#0F172A] truncate">{goal.name}</p>
                         <div className="flex items-center gap-1 ml-2 flex-shrink-0">
                           {pct >= 1 && (
                             <button
@@ -460,14 +460,14 @@ export default function BudgetGoalsPage() {
                           )}
                           <button
                             onClick={() => handleDeleteGoal(goal.id)}
-                            className="p-1.5 rounded-full text-[#E0E0E0] hover:text-danger hover:bg-danger-light transition-colors"
+                            className="p-1.5 rounded-full text-[#CBD5E1] hover:text-danger hover:bg-danger-light transition-colors"
                           >
                             <Trash2 size={12} />
                           </button>
                         </div>
                       </div>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs text-[#6B6B6B] tabular-nums">
+                        <span className="text-xs text-[#64748B] tabular-nums">
                           {formatRupiah(goal.saved_amount)} / {formatRupiah(goal.target_amount)}
                         </span>
                         <span className="text-xs font-semibold text-primary">{Math.round(pct * 100)}%</span>
@@ -476,12 +476,12 @@ export default function BudgetGoalsPage() {
                       {(days !== null || monthly !== null) && (
                         <div className="flex gap-3 mt-2">
                           {days !== null && (
-                            <span className="text-xs text-[#6B6B6B]">
+                            <span className="text-xs text-[#64748B]">
                               {days > 0 ? `${days} hari lagi` : days === 0 ? "Hari ini!" : "Sudah lewat"}
                             </span>
                           )}
                           {monthly !== null && monthly > 0 && (
-                            <span className="text-xs text-[#6B6B6B]">
+                            <span className="text-xs text-[#64748B]">
                               Nabung {formatRupiah(monthly)}/bln
                             </span>
                           )}

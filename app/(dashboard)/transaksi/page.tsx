@@ -132,20 +132,20 @@ export default function TransaksiPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-bold text-[#1A1A1A]">Transaksi</h1>
+      <h1 className="text-xl font-bold text-[#0F172A]">Transaksi</h1>
 
       {/* Month nav */}
-      <div className="flex items-center justify-between bg-white rounded-card px-4 py-2 border border-[#E0E0E0] shadow-sm">
-        <button onClick={prevMonth} className="p-1.5 rounded-full hover:bg-surface transition-colors">
-          <ChevronLeft size={18} className="text-[#6B6B6B]" />
+      <div className="flex items-center justify-between bg-white rounded-card px-4 py-2 border border-c-border shadow-card">
+        <button onClick={prevMonth} className="cursor-pointer p-1.5 rounded-full hover:bg-surface-2 transition-colors">
+          <ChevronLeft size={18} className="text-[#64748B]" />
         </button>
-        <span className="text-sm font-semibold text-[#1A1A1A]">{MONTH_NAMES_ID[month - 1]} {year}</span>
+        <span className="text-sm font-semibold text-[#0F172A]">{MONTH_NAMES_ID[month - 1]} {year}</span>
         <button
           onClick={nextMonth}
           disabled={isCurrentMonth}
-          className="p-1.5 rounded-full hover:bg-surface transition-colors disabled:opacity-30"
+          className="cursor-pointer p-1.5 rounded-full hover:bg-surface-2 transition-colors disabled:opacity-30"
         >
-          <ChevronRight size={18} className="text-[#6B6B6B]" />
+          <ChevronRight size={18} className="text-[#64748B]" />
         </button>
       </div>
 
@@ -163,17 +163,17 @@ export default function TransaksiPage() {
 
       {/* Search */}
       <div className="relative">
-        <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6B6B6B]" />
+        <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#94A3B8]" />
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Cari catatan..."
-          className="w-full pl-10 pr-9 py-2.5 bg-white border border-[#E0E0E0] rounded-btn text-sm text-[#1A1A1A] focus:outline-none focus:border-primary transition-colors"
+          className="w-full pl-10 pr-9 py-2.5 bg-white border border-c-border rounded-btn text-sm text-[#0F172A] focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] transition-colors"
         />
         {search && (
-          <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2">
-            <X size={14} className="text-[#6B6B6B]" />
+          <button onClick={() => setSearch("")} className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2">
+            <X size={14} className="text-[#94A3B8]" />
           </button>
         )}
       </div>
@@ -192,7 +192,7 @@ export default function TransaksiPage() {
                   : t === "INCOME"
                   ? "bg-success text-white border-success"
                   : "bg-primary text-white border-primary"
-                : "bg-white text-[#6B6B6B] border-[#E0E0E0] hover:border-primary/50"
+                : "bg-white text-[#64748B] border-c-border hover:border-primary/50"
             )}
           >
             {t === "ALL" ? "Semua" : t === "EXPENSE" ? "Pengeluaran" : "Pemasukan"}
@@ -213,10 +213,10 @@ export default function TransaksiPage() {
         <div className="space-y-4">
           {grouped.map((group) => (
             <div key={group.date}>
-              <p className="text-xs font-semibold text-[#6B6B6B] uppercase tracking-wide mb-2 px-1">
+              <p className="text-xs font-semibold text-[#64748B] uppercase tracking-wide mb-2 px-1">
                 {formatRelativeDate(group.date)}
               </p>
-              <div className="bg-white rounded-card border border-[#E0E0E0] shadow-sm divide-y divide-[#E0E0E0]">
+              <div className="bg-white rounded-card border border-c-border shadow-card divide-y divide-c-border">
                 {group.transactions.map((tx) => (
                   <div
                     key={tx.id}
@@ -227,22 +227,22 @@ export default function TransaksiPage() {
                   >
                     <div
                       className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                      style={{ backgroundColor: tx.category?.color ? tx.category.color + "20" : "#F5F5F5" }}
+                      style={{ backgroundColor: tx.category?.color ? tx.category.color + "18" : "#F1F5F9" }}
                     >
                       {tx.category ? (
                         <LucideIcon name={tx.category.icon} size={16} style={{ color: tx.category.color }} />
                       ) : (
-                        <Wallet size={16} className="text-[#6B6B6B]" />
+                        <Wallet size={16} className="text-[#94A3B8]" />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-[#1A1A1A] truncate">
+                      <p className="text-sm font-semibold text-[#0F172A] truncate">
                         {tx.note ?? tx.category?.name ?? "Transaksi"}
                       </p>
-                      <p className="text-xs text-[#6B6B6B]">{tx.account?.name}</p>
+                      <p className="text-xs text-[#64748B]">{tx.account?.name}</p>
                     </div>
                     <p className={cn(
-                      "text-sm font-semibold tabular-nums flex-shrink-0",
+                      "text-sm font-bold tabular-nums flex-shrink-0",
                       tx.type === "INCOME" ? "text-success" : "text-danger"
                     )}>
                       {tx.type === "INCOME" ? "+" : "-"}{formatRupiah(tx.amount)}
@@ -250,7 +250,7 @@ export default function TransaksiPage() {
                     <button
                       onClick={() => handleDelete(tx)}
                       disabled={deletingId === tx.id}
-                      className="p-1.5 rounded-full hover:bg-danger-light hover:text-danger transition-colors text-[#E0E0E0] ml-1"
+                      className="cursor-pointer p-1.5 rounded-full hover:bg-danger-light hover:text-danger transition-colors text-[#CBD5E1] ml-1"
                     >
                       <Trash2 size={14} />
                     </button>

@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800"] });
+const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800"] });
 
 export const metadata: Metadata = {
   title: "Celengan — Catat Keuanganmu",
@@ -15,21 +15,21 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#68B684",
+  themeColor: "#6366F1",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id">
-      <body className={`${inter.className} bg-surface text-[#1A1A1A] antialiased`}>
+      <body className={`${plusJakartaSans.className} bg-surface text-[#0F172A] antialiased`}>
         {children}
         <Toaster
           position="bottom-center"
           toastOptions={{
             style: {
-              background: "#1A1A1A",
-              color: "#FFFFFF",
-              borderRadius: "12px",
+              background: "#0F172A",
+              color: "#F8FAFC",
+              borderRadius: "14px",
               fontSize: "14px",
             },
           }}

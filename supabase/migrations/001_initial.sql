@@ -144,9 +144,13 @@ create table if not exists public.budgets (
   month        smallint not null check (month between 1 and 12),
   year         smallint not null,
   created_at   timestamptz not null default now(),
-  unique (user_id, category_id, month, year),
-  unique (user_id, month, year) where category_id is null
+  unique (user_id, category_id, month, year)
 );
+
+-- Partial unique index: only one overall budget (null category_id) per user per month/year
+create unique index if not exists idx_budgets_overall_unique
+  on public.budgets (user_id, month, year)
+  where category_id is null;
 
 create index idx_budgets_user_month on public.budgets(user_id, month, year);
 
@@ -189,7 +193,7 @@ create table if not exists public.credit_cards (
   id            uuid default gen_random_uuid() primary key,
   user_id       uuid references auth.users on delete cascade not null,
   name          text not null,
-  bank          text not null,
+  bank          text,
   last_four     text,
   limit_amount  numeric(15,0) not null,
   balance       numeric(15,0) not null default 0,

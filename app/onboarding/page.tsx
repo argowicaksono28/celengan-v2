@@ -92,7 +92,7 @@ export default function OnboardingPage() {
           type: draft.type,
           icon: draft.icon,
           balance: parseRupiahInput(draft.balance) ?? 0,
-          color: "#68B684",
+          color: "#6366F1",
         });
       }
       setStep(2);
@@ -158,7 +158,7 @@ export default function OnboardingPage() {
             {[1, 2].map((s) => (
               <div key={s} className={cn(
                 "w-2 h-2 rounded-full transition-all",
-                step === s ? "bg-primary w-6" : step > s ? "bg-primary" : "bg-[#E0E0E0]"
+                step === s ? "bg-primary w-6" : step > s ? "bg-primary" : "bg-c-border"
               )} />
             ))}
           </div>
@@ -170,10 +170,10 @@ export default function OnboardingPage() {
             <div className="w-20 h-20 rounded-3xl bg-primary-light flex items-center justify-center mx-auto mb-6">
               <Sparkles size={40} className="text-primary" />
             </div>
-            <h1 className="text-3xl font-bold text-[#1A1A1A] mb-3">
+            <h1 className="text-3xl font-bold text-[#0F172A] mb-3">
               Halo, {userName || "Teman"}! 👋
             </h1>
-            <p className="text-[#6B6B6B] text-base mb-8 leading-relaxed">
+            <p className="text-[#64748B] text-base mb-8 leading-relaxed">
               Celengan membantu kamu melacak keuangan dengan mudah. Yuk, kita mulai setup akun kamu sekarang!
             </p>
             <button
@@ -194,8 +194,8 @@ export default function OnboardingPage() {
                 <Wallet size={20} className="text-primary" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-[#1A1A1A]">Akun kamu</h2>
-                <p className="text-sm text-[#6B6B6B]">Pilih akun yang kamu punya</p>
+                <h2 className="text-xl font-bold text-[#0F172A]">Akun kamu</h2>
+                <p className="text-sm text-[#64748B]">Pilih akun yang kamu punya</p>
               </div>
             </div>
 
@@ -219,7 +219,7 @@ export default function OnboardingPage() {
                       "px-4 py-2 rounded-chip text-sm font-medium transition-all border",
                       selected
                         ? "bg-primary text-white border-primary"
-                        : "bg-white border-[#E0E0E0] text-[#3D3D3D] hover:border-primary/50"
+                        : "bg-white border-c-border text-[#334155] hover:border-primary/50"
                     )}
                   >
                     {selected && <Check size={12} className="inline mr-1" />}
@@ -232,12 +232,12 @@ export default function OnboardingPage() {
             {/* Balance inputs for selected accounts */}
             {accountDrafts.length > 0 && (
               <div className="space-y-3 mb-4">
-                <p className="text-sm font-medium text-[#3D3D3D]">Masukkan saldo awal (opsional):</p>
+                <p className="text-sm font-medium text-[#334155]">Masukkan saldo awal (opsional):</p>
                 {accountDrafts.map((draft) => (
-                  <div key={draft.chipName} className="flex items-center gap-3 p-3 bg-white rounded-btn border border-[#E0E0E0]">
-                    <span className="text-sm font-medium text-[#1A1A1A] w-20 flex-shrink-0">{draft.name}</span>
-                    <div className="flex items-center gap-1 flex-1 border-l border-[#E0E0E0] pl-3">
-                      <span className="text-[#6B6B6B] text-sm">Rp</span>
+                  <div key={draft.chipName} className="flex items-center gap-3 p-3 bg-white rounded-btn border border-c-border">
+                    <span className="text-sm font-medium text-[#0F172A] w-20 flex-shrink-0">{draft.name}</span>
+                    <div className="flex items-center gap-1 flex-1 border-l border-c-border pl-3">
+                      <span className="text-[#64748B] text-sm">Rp</span>
                       <input
                         type="text"
                         inputMode="numeric"
@@ -247,7 +247,7 @@ export default function OnboardingPage() {
                           updateDraft(draft.chipName, "balance", raw);
                         }}
                         placeholder="0"
-                        className="flex-1 text-sm font-semibold text-[#1A1A1A] outline-none bg-transparent tabular-nums"
+                        className="flex-1 text-sm font-semibold text-[#0F172A] outline-none bg-transparent tabular-nums"
                       />
                     </div>
                   </div>
@@ -258,7 +258,7 @@ export default function OnboardingPage() {
             <button
               onClick={handleSaveAccounts}
               disabled={saving || accountDrafts.length === 0}
-              className="w-full py-3.5 bg-primary text-white font-semibold rounded-btn text-base hover:bg-primary-dark disabled:bg-[#E0E0E0] disabled:text-[#6B6B6B] transition-colors"
+              className="w-full py-3.5 bg-primary text-white font-semibold rounded-btn text-base hover:bg-primary-dark disabled:bg-[#E2E8F0] disabled:text-[#64748B] transition-colors"
             >
               {saving ? "Menyimpan..." : "Lanjut"}
             </button>
@@ -273,40 +273,40 @@ export default function OnboardingPage() {
                 <Target size={20} className="text-warning" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-[#1A1A1A]">Budget bulanan</h2>
-                <p className="text-sm text-[#6B6B6B]">Batas pengeluaran per bulan ini</p>
+                <h2 className="text-xl font-bold text-[#0F172A]">Budget bulanan</h2>
+                <p className="text-sm text-[#64748B]">Batas pengeluaran per bulan ini</p>
               </div>
             </div>
 
             <div className="mb-4">
-              <div className="flex items-center border border-[#E0E0E0] rounded-btn bg-white focus-within:border-primary focus-within:shadow-[0_0_0_3px_rgba(104,182,132,0.15)] px-4 py-3 gap-2 transition-all">
-                <span className="text-[#6B6B6B] font-medium text-2xl">Rp</span>
+              <div className="flex items-center border border-c-border rounded-btn bg-white focus-within:border-primary focus-within:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] px-4 py-3 gap-2 transition-all">
+                <span className="text-[#64748B] font-medium text-2xl">Rp</span>
                 <input
                   type="text"
                   inputMode="numeric"
                   value={budgetInput ? parseInt(budgetInput.replace(/\D/g,"")).toLocaleString("id-ID") : ""}
                   onChange={(e) => setBudgetInput(e.target.value.replace(/\D/g,""))}
                   placeholder="5.000.000"
-                  className="flex-1 text-2xl font-bold text-[#1A1A1A] tabular-nums outline-none bg-transparent"
+                  className="flex-1 text-2xl font-bold text-[#0F172A] tabular-nums outline-none bg-transparent"
                   autoFocus
                 />
               </div>
               {budgetInput && (
-                <p className="text-xs text-[#6B6B6B] mt-1 px-1">{formatRupiah(parseInt(budgetInput) || 0)}</p>
+                <p className="text-xs text-[#64748B] mt-1 px-1">{formatRupiah(parseInt(budgetInput) || 0)}</p>
               )}
             </div>
 
             <div className="flex gap-3">
               <button
                 onClick={() => setStep(3)}
-                className="flex-1 py-3.5 border border-[#E0E0E0] text-[#6B6B6B] font-semibold rounded-btn text-base hover:bg-surface transition-colors"
+                className="flex-1 py-3.5 border border-c-border text-[#64748B] font-semibold rounded-btn text-base hover:bg-surface transition-colors"
               >
                 Lewati
               </button>
               <button
                 onClick={handleSaveBudget}
                 disabled={saving}
-                className="flex-1 py-3.5 bg-primary text-white font-semibold rounded-btn text-base hover:bg-primary-dark disabled:bg-[#E0E0E0] disabled:text-[#6B6B6B] transition-colors"
+                className="flex-1 py-3.5 bg-primary text-white font-semibold rounded-btn text-base hover:bg-primary-dark disabled:bg-[#E2E8F0] disabled:text-[#64748B] transition-colors"
               >
                 {saving ? "Menyimpan..." : "Simpan"}
               </button>
@@ -320,23 +320,23 @@ export default function OnboardingPage() {
             <div className="w-20 h-20 rounded-full bg-success-light flex items-center justify-center mx-auto mb-6">
               <Check size={40} className="text-success" strokeWidth={3} />
             </div>
-            <h2 className="text-2xl font-bold text-[#1A1A1A] mb-3">Semua siap! 🎉</h2>
-            <p className="text-[#6B6B6B] text-base mb-8 leading-relaxed">
+            <h2 className="text-2xl font-bold text-[#0F172A] mb-3">Semua siap! 🎉</h2>
+            <p className="text-[#64748B] text-base mb-8 leading-relaxed">
               Sekarang kamu bisa lihat semua uangmu di satu tempat. Yuk mulai catat transaksi pertamamu!
             </p>
 
             <div className="bg-primary-light rounded-card p-4 mb-6 text-left">
               <p className="text-sm font-semibold text-primary mb-2">Tips memulai:</p>
               <ul className="space-y-1">
-                <li className="text-sm text-[#3D3D3D] flex items-start gap-2">
+                <li className="text-sm text-[#334155] flex items-start gap-2">
                   <Receipt size={14} className="text-primary mt-0.5 flex-shrink-0" />
                   Tap tombol + untuk catat pengeluaran
                 </li>
-                <li className="text-sm text-[#3D3D3D] flex items-start gap-2">
+                <li className="text-sm text-[#334155] flex items-start gap-2">
                   <Target size={14} className="text-primary mt-0.5 flex-shrink-0" />
                   Buat goals tabungan di tab Budget & Goals
                 </li>
-                <li className="text-sm text-[#3D3D3D] flex items-start gap-2">
+                <li className="text-sm text-[#334155] flex items-start gap-2">
                   <Sparkles size={14} className="text-primary mt-0.5 flex-shrink-0" />
                   Lihat insights pengeluaranmu setiap bulan
                 </li>

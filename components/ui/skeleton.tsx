@@ -18,7 +18,7 @@ export function SkeletonList({ count = 5 }: { count?: number }) {
   return (
     <div className="space-y-0">
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="flex items-center gap-3 px-4 py-3 border-b border-[#E0E0E0]">
+        <div key={i} className="flex items-center gap-3 px-4 py-3 border-b border-c-border">
           <Skeleton className="w-10 h-10 rounded-full flex-shrink-0" />
           <div className="flex-1 space-y-2">
             <Skeleton className="h-4 w-3/4" />

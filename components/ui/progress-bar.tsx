@@ -42,7 +42,7 @@ export function ProgressBar({
     <div className={cn("space-y-1", className)}>
       {(label || showValues) && (
         <div className="flex items-center justify-between text-sm">
-          {label && <span className="font-medium text-[#3D3D3D] truncate">{label}</span>}
+          {label && <span className="font-medium text-[#334155] truncate">{label}</span>}
           {showValues && (
             <span className={cn("ml-auto tabular-nums text-xs", text)}>
               {Math.round(pct * 100)}%
@@ -52,7 +52,7 @@ export function ProgressBar({
       )}
 
       {/* Bar container */}
-      <div className="h-2 bg-[#E0E0E0] rounded-chip overflow-hidden">
+      <div className="h-2 bg-c-border rounded-chip overflow-hidden">
         <div
           className={cn(
             "h-full rounded-chip progress-fill",
@@ -64,7 +64,7 @@ export function ProgressBar({
       </div>
 
       {showValues && (
-        <div className="flex items-center justify-between text-xs text-[#6B6B6B] tabular-nums">
+        <div className="flex items-center justify-between text-xs text-[#64748B] tabular-nums">
           <span>{formatRupiah(value)}</span>
           {overspent ? (
             <span className="text-danger font-medium">

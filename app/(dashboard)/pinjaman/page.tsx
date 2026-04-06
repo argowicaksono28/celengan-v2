@@ -32,7 +32,7 @@ function LoanForm({ onSave, onCancel }: {
   const [note, setNote] = useState("");
 
   return (
-    <div className="bg-white rounded-card border border-[#E0E0E0] p-4 space-y-3">
+    <div className="bg-white rounded-card border border-c-border p-4 space-y-3">
       <div className="flex gap-2">
         {(["LENT","BORROWED"] as const).map((d) => (
           <button
@@ -42,7 +42,7 @@ function LoanForm({ onSave, onCancel }: {
               "flex-1 py-2 rounded-chip text-sm font-medium border transition-all",
               direction === d
                 ? d === "LENT" ? "bg-success text-white border-success" : "bg-danger text-white border-danger"
-                : "bg-white border-[#E0E0E0] text-[#6B6B6B]"
+                : "bg-white border-c-border text-[#64748B]"
             )}
           >
             {d === "LENT" ? "Dipinjamkan" : "Dipinjam"}
@@ -52,13 +52,13 @@ function LoanForm({ onSave, onCancel }: {
       <input
         type="text" value={personName} onChange={(e) => setPersonName(e.target.value.slice(0, 50))}
         placeholder={direction === "LENT" ? "Nama peminjam" : "Nama pemberi pinjaman"}
-        className="w-full px-3 py-2 border border-[#E0E0E0] rounded-btn text-sm focus:outline-none focus:border-primary"
+        className="w-full px-3 py-2 border border-c-border rounded-btn text-sm focus:outline-none focus:border-primary"
         autoFocus
       />
       <div>
-        <label className="text-xs text-[#6B6B6B] mb-1 block">Jumlah</label>
-        <div className="flex items-center border border-[#E0E0E0] rounded-btn px-3 py-2 gap-1.5 focus-within:border-primary">
-          <span className="text-sm text-[#6B6B6B]">Rp</span>
+        <label className="text-xs text-[#64748B] mb-1 block">Jumlah</label>
+        <div className="flex items-center border border-c-border rounded-btn px-3 py-2 gap-1.5 focus-within:border-primary">
+          <span className="text-sm text-[#64748B]">Rp</span>
           <input type="text" inputMode="numeric"
             value={amount ? parseInt(amount.replace(/\D/g,"")).toLocaleString("id-ID") : ""}
             onChange={(e) => setAmount(e.target.value.replace(/\D/g,""))}
@@ -68,26 +68,26 @@ function LoanForm({ onSave, onCancel }: {
         </div>
       </div>
       <div>
-        <label className="text-xs text-[#6B6B6B] mb-1 block">Jatuh tempo (opsional)</label>
+        <label className="text-xs text-[#64748B] mb-1 block">Jatuh tempo (opsional)</label>
         <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)}
-          className="w-full px-3 py-2 border border-[#E0E0E0] rounded-btn text-sm focus:outline-none focus:border-primary"
+          className="w-full px-3 py-2 border border-c-border rounded-btn text-sm focus:outline-none focus:border-primary"
         />
       </div>
       <textarea
         value={note} onChange={(e) => setNote(e.target.value.slice(0, 100))}
         placeholder="Catatan (opsional)"
         rows={2}
-        className="w-full px-3 py-2 border border-[#E0E0E0] rounded-btn text-sm focus:outline-none focus:border-primary resize-none"
+        className="w-full px-3 py-2 border border-c-border rounded-btn text-sm focus:outline-none focus:border-primary resize-none"
       />
       <div className="flex gap-2">
-        <button onClick={onCancel} className="flex-1 py-2.5 border border-[#E0E0E0] rounded-btn text-sm text-[#6B6B6B] hover:bg-surface">Batal</button>
+        <button onClick={onCancel} className="flex-1 py-2.5 border border-c-border rounded-btn text-sm text-[#64748B] hover:bg-surface-2">Batal</button>
         <button
           onClick={() => personName && amount && onSave({
             person_name: personName, direction, original_amount: parseInt(amount.replace(/\D/g,"")),
             due_date: dueDate || null, note: note.trim() || null,
           })}
           disabled={!personName || !amount}
-          className="flex-1 py-2.5 bg-primary rounded-btn text-sm font-semibold text-white hover:bg-primary-dark disabled:bg-[#E0E0E0] disabled:text-[#6B6B6B]"
+          className="flex-1 py-2.5 bg-primary rounded-btn text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-50"
         >
           Simpan
         </button>
@@ -146,7 +146,7 @@ export default function PinjamanPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-[#1A1A1A]">Pinjaman</h1>
+        <h1 className="text-xl font-bold text-[#0F172A]">Pinjaman</h1>
         <button
           onClick={() => setShowForm(true)}
           className="flex items-center gap-1.5 px-3 py-2 bg-primary text-white text-sm font-semibold rounded-btn hover:bg-primary-dark"
@@ -179,7 +179,7 @@ export default function PinjamanPage() {
             onClick={() => setTab(t)}
             className={cn(
               "flex-1 py-2 rounded-chip text-sm font-medium border transition-all",
-              tab === t ? "bg-primary text-white border-primary" : "bg-white border-[#E0E0E0] text-[#6B6B6B]"
+              tab === t ? "bg-primary text-white border-primary" : "bg-white border-c-border text-[#64748B]"
             )}
           >
             {t === "ACTIVE" ? "Aktif" : "Lunas"}
@@ -188,7 +188,7 @@ export default function PinjamanPage() {
       </div>
 
       {loading ? (
-        <div className="space-y-3">{[1,2,3].map((i) => <div key={i} className="h-20 bg-white rounded-card border border-[#E0E0E0] animate-pulse" />)}</div>
+        <div className="space-y-3">{[1,2,3].map((i) => <div key={i} className="h-20 bg-white rounded-card border border-c-border animate-pulse" />)}</div>
       ) : filtered.length === 0 ? (
         <EmptyState
           icon="Landmark"
@@ -199,16 +199,16 @@ export default function PinjamanPage() {
       ) : (
         <div className="space-y-3">
           {filtered.map((loan) => (
-            <div key={loan.id} className="bg-white rounded-card border border-[#E0E0E0] shadow-sm p-4">
+            <div key={loan.id} className="bg-white rounded-card border border-c-border shadow-card p-4">
               <div className="flex items-start justify-between mb-1">
                 <div>
                   <div className="flex items-center gap-2">
-                    <p className="text-sm font-semibold text-[#1A1A1A]">{loan.person_name}</p>
+                    <p className="text-sm font-semibold text-[#0F172A]">{loan.person_name}</p>
                     <Badge variant={loan.direction === "LENT" ? "success" : "danger"}>
                       {loan.direction === "LENT" ? "Piutang" : "Hutang"}
                     </Badge>
                   </div>
-                  {loan.note && <p className="text-xs text-[#6B6B6B] mt-0.5">{loan.note}</p>}
+                  {loan.note && <p className="text-xs text-[#64748B] mt-0.5">{loan.note}</p>}
                 </div>
                 <div className="flex gap-1 ml-2">
                   {tab === "ACTIVE" && (
@@ -216,7 +216,7 @@ export default function PinjamanPage() {
                       <Check size={13} />
                     </button>
                   )}
-                  <button onClick={() => handleDelete(loan.id)} className="p-1.5 rounded-full text-[#E0E0E0] hover:text-danger hover:bg-danger-light transition-colors">
+                  <button onClick={() => handleDelete(loan.id)} className="p-1.5 rounded-full text-[#CBD5E1] hover:text-danger hover:bg-danger-light transition-colors">
                     <Trash2 size={13} />
                   </button>
                 </div>
@@ -225,10 +225,10 @@ export default function PinjamanPage() {
                 {formatRupiah(loan.remaining_amount)}
               </p>
               {loan.original_amount !== loan.remaining_amount && (
-                <p className="text-xs text-[#6B6B6B]">Asli: {formatRupiah(loan.original_amount)}</p>
+                <p className="text-xs text-[#64748B]">Asli: {formatRupiah(loan.original_amount)}</p>
               )}
               {loan.due_date && (
-                <p className="text-xs text-[#6B6B6B] mt-1">Jatuh tempo: {new Date(loan.due_date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}</p>
+                <p className="text-xs text-[#64748B] mt-1">Jatuh tempo: {new Date(loan.due_date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}</p>
               )}
             </div>
           ))}

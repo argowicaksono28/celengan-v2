@@ -32,14 +32,14 @@ export function EmptyState({ title, description, icon, compact, action, classNam
           <LucideIcon name={icon} size={compact ? 20 : 32} />
         ) : (
           <svg width={compact ? 20 : 40} height={compact ? 20 : 40} viewBox="0 0 40 40" fill="none">
-            <circle cx="20" cy="20" r="16" stroke="#E0E0E0" strokeWidth="2.5"/>
-            <path d="M20 14v8M20 26v.5" stroke="#E0E0E0" strokeWidth="2.5" strokeLinecap="round"/>
+            <circle cx="20" cy="20" r="16" stroke="#E2E8F0" strokeWidth="2.5"/>
+            <path d="M20 14v8M20 26v.5" stroke="#E2E8F0" strokeWidth="2.5" strokeLinecap="round"/>
           </svg>
         )}
       </div>
       <div>
-        <h3 className={cn("font-semibold text-[#1A1A1A]", compact ? "text-base mb-0.5" : "text-xl mb-1")}>{title}</h3>
-        {description && <p className={cn("text-[#6B6B6B]", compact ? "text-xs" : "text-sm max-w-xs")}>{description}</p>}
+        <h3 className={cn("font-semibold text-[#0F172A]", compact ? "text-base mb-0.5" : "text-xl mb-1")}>{title}</h3>
+        {description && <p className={cn("text-[#64748B]", compact ? "text-xs" : "text-sm max-w-xs")}>{description}</p>}
       </div>
       {action && (
         <button

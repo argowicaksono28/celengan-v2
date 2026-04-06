@@ -159,35 +159,35 @@ export function TransactionSheet({
       >
         {/* Handle bar (mobile only) */}
         <div className="flex justify-center pt-3 pb-1 md:hidden">
-          <div className="w-8 h-1 rounded-chip bg-[#E0E0E0]" />
+          <div className="w-10 h-1 rounded-chip bg-c-border" />
         </div>
 
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-3 border-b border-[#E0E0E0]">
-          <h2 className="text-xl font-semibold text-[#1A1A1A]">Tambah Transaksi</h2>
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-c-border">
+          <h2 className="text-lg font-bold text-[#0F172A]">Tambah Transaksi</h2>
           <button
             onClick={onClose}
             aria-label="Tutup"
-            className="p-2 rounded-full hover:bg-surface transition-colors text-[#6B6B6B]"
+            className="cursor-pointer p-2 rounded-full hover:bg-surface-2 transition-colors text-[#64748B]"
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
         <div className="flex-1 overflow-y-auto px-5 py-4 space-y-5 pb-6">
           {/* 1. Type Toggle */}
-          <div className="flex rounded-btn bg-surface p-1">
+          <div className="flex rounded-xl bg-surface-2 p-1 gap-1">
             {(["EXPENSE", "INCOME"] as TxType[]).map((t) => (
               <button
                 key={t}
                 onClick={() => setType(t)}
                 className={cn(
-                  "flex-1 py-2 text-sm font-semibold rounded-[10px] transition-all",
+                  "cursor-pointer flex-1 py-2 text-sm font-semibold rounded-[10px] transition-all",
                   type === t
                     ? t === "EXPENSE"
                       ? "bg-danger text-white shadow-sm"
                       : "bg-success text-white shadow-sm"
-                    : "text-[#6B6B6B] hover:text-[#1A1A1A]"
+                    : "text-[#64748B] hover:text-[#0F172A]"
                 )}
               >
                 {t === "EXPENSE" ? "Pengeluaran" : "Pemasukan"}
@@ -197,9 +197,9 @@ export function TransactionSheet({
 
           {/* 2. Amount */}
           <div>
-            <label className="block text-sm font-medium text-[#3D3D3D] mb-2">Jumlah</label>
-            <div className="flex items-center border border-[#E0E0E0] rounded-btn bg-white focus-within:border-primary focus-within:shadow-[0_0_0_3px_rgba(104,182,132,0.15)] transition-all px-4 py-3 gap-2">
-              <span className="text-[#6B6B6B] font-medium text-2xl flex-shrink-0">Rp</span>
+            <label className="block text-xs font-semibold text-[#64748B] uppercase tracking-wide mb-2">Jumlah</label>
+            <div className="flex items-center border-2 border-c-border rounded-btn bg-white focus-within:border-primary focus-within:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] transition-all px-4 py-3 gap-2">
+              <span className="text-[#94A3B8] font-semibold text-2xl flex-shrink-0">Rp</span>
               <input
                 ref={amountRef}
                 type="text"
@@ -207,27 +207,27 @@ export function TransactionSheet({
                 value={numericAmount > 0 ? numericAmount.toLocaleString("id-ID") : ""}
                 onChange={handleAmountInput}
                 placeholder="0"
-                className="flex-1 text-2xl font-bold text-[#1A1A1A] tabular-nums outline-none bg-transparent"
+                className="flex-1 text-2xl font-bold text-[#0F172A] tabular-nums outline-none bg-transparent"
               />
             </div>
             {numericAmount > 0 && (
-              <p className="text-xs text-[#6B6B6B] mt-1 px-1">{formatRupiah(numericAmount)}</p>
+              <p className="text-xs text-[#64748B] mt-1.5 px-1">{formatRupiah(numericAmount)}</p>
             )}
           </div>
 
           {/* 3. Category Chips */}
           <div>
-            <label className="block text-sm font-medium text-[#3D3D3D] mb-2">Kategori</label>
+            <label className="block text-xs font-semibold text-[#64748B] uppercase tracking-wide mb-2">Kategori</label>
             <div className="chips-row">
               {filteredCats.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => setCategoryId(cat.id)}
                   className={cn(
-                    "btn-press flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-chip text-sm font-medium transition-all border",
+                    "btn-press cursor-pointer flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-chip text-sm font-medium transition-all border",
                     categoryId === cat.id
                       ? "border-primary bg-primary-light text-primary"
-                      : "border-[#E0E0E0] bg-white text-[#3D3D3D] hover:border-primary/50"
+                      : "border-c-border bg-white text-[#334155] hover:border-primary/40"
                   )}
                 >
                   <LucideIcon name={cat.icon} size={14} />
@@ -239,17 +239,17 @@ export function TransactionSheet({
 
           {/* 4. Account Selector */}
           <div>
-            <label className="block text-sm font-medium text-[#3D3D3D] mb-2">Akun</label>
+            <label className="block text-xs font-semibold text-[#64748B] uppercase tracking-wide mb-2">Akun</label>
             <div className="chips-row">
               {accounts.map((acc) => (
                 <button
                   key={acc.id}
                   onClick={() => setAccountId(acc.id)}
                   className={cn(
-                    "btn-press flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-chip text-sm font-medium transition-all border",
+                    "btn-press cursor-pointer flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-chip text-sm font-medium transition-all border",
                     accountId === acc.id
                       ? "border-primary bg-primary-light text-primary"
-                      : "border-[#E0E0E0] bg-white text-[#3D3D3D] hover:border-primary/50"
+                      : "border-c-border bg-white text-[#334155] hover:border-primary/40"
                   )}
                 >
                   <LucideIcon name={acc.icon} size={14} />
@@ -261,19 +261,19 @@ export function TransactionSheet({
 
           {/* 5. Date */}
           <div>
-            <label className="block text-sm font-medium text-[#3D3D3D] mb-2">Tanggal</label>
+            <label className="block text-xs font-semibold text-[#64748B] uppercase tracking-wide mb-2">Tanggal</label>
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full px-4 py-3 border border-[#E0E0E0] rounded-btn text-[#1A1A1A] text-base focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_rgba(104,182,132,0.15)] transition-all bg-white"
+              className="w-full px-4 py-3 border-2 border-c-border rounded-btn text-[#0F172A] text-base focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] transition-all bg-white"
             />
           </div>
 
           {/* 6. Note (optional) */}
           <div>
-            <label className="block text-sm font-medium text-[#3D3D3D] mb-2">
-              Catatan <span className="text-[#6B6B6B] font-normal">(opsional)</span>
+            <label className="block text-xs font-semibold text-[#64748B] uppercase tracking-wide mb-2">
+              Catatan <span className="text-[#94A3B8] font-normal normal-case tracking-normal">(opsional)</span>
             </label>
             <input
               type="text"
@@ -281,17 +281,17 @@ export function TransactionSheet({
               onChange={(e) => setNote(e.target.value.slice(0, 100))}
               placeholder="Tambah catatan..."
               maxLength={100}
-              className="w-full px-4 py-3 border border-[#E0E0E0] rounded-btn text-[#1A1A1A] text-base focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_rgba(104,182,132,0.15)] transition-all bg-white placeholder-[#6B6B6B]"
+              className="w-full px-4 py-3 border-2 border-c-border rounded-btn text-[#0F172A] text-base focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] transition-all bg-white placeholder:text-[#94A3B8]"
             />
           </div>
         </div>
 
         {/* Save Button */}
-        <div className="sticky bottom-0 px-5 py-4 bg-white border-t border-[#E0E0E0]">
+        <div className="sticky bottom-0 px-5 py-4 bg-white border-t border-c-border">
           <button
             onClick={handleSave}
             disabled={loading || !numericAmount}
-            className="btn-press w-full py-3.5 bg-primary text-white font-semibold rounded-btn text-base hover:bg-primary-dark disabled:bg-[#E0E0E0] disabled:text-[#6B6B6B] disabled:cursor-not-allowed transition-colors"
+            className="btn-press cursor-pointer w-full py-3.5 hero-gradient text-white font-bold rounded-btn text-base hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition-opacity shadow-fab"
           >
             {loading ? "Menyimpan..." : "Simpan"}
           </button>

@@ -43,20 +43,20 @@ function AccountForm({ initial, onSave, onCancel }: {
   const [balance, setBalance] = useState(initial?.balance != null ? String(initial.balance) : "");
 
   return (
-    <div className="bg-white rounded-card border border-[#E0E0E0] p-4 space-y-3">
+    <div className="bg-white rounded-card border border-c-border p-4 space-y-3">
       <div>
-        <label className="text-xs font-medium text-[#6B6B6B] mb-1 block">Nama Akun</label>
+        <label className="text-xs font-medium text-[#64748B] mb-1 block">Nama Akun</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value.slice(0, 30))}
           placeholder="Contoh: BCA Tabungan"
-          className="w-full px-3 py-2 border border-[#E0E0E0] rounded-btn text-sm text-[#1A1A1A] focus:outline-none focus:border-primary"
+          className="w-full px-3 py-2 border border-c-border rounded-btn text-sm text-[#0F172A] focus:outline-none focus:border-primary"
           autoFocus
         />
       </div>
       <div>
-        <label className="text-xs font-medium text-[#6B6B6B] mb-1 block">Tipe</label>
+        <label className="text-xs font-medium text-[#64748B] mb-1 block">Tipe</label>
         <div className="flex flex-wrap gap-1.5">
           {ACCOUNT_TYPES.map((t) => (
             <button
@@ -64,7 +64,7 @@ function AccountForm({ initial, onSave, onCancel }: {
               onClick={() => setType(t.value)}
               className={cn(
                 "px-2.5 py-1 rounded-chip text-xs font-medium border transition-all",
-                type === t.value ? "bg-primary text-white border-primary" : "bg-white border-[#E0E0E0] text-[#3D3D3D]"
+                type === t.value ? "bg-primary text-white border-primary" : "bg-white border-c-border text-[#334155]"
               )}
             >
               {t.label}
@@ -73,7 +73,7 @@ function AccountForm({ initial, onSave, onCancel }: {
         </div>
       </div>
       <div>
-        <label className="text-xs font-medium text-[#6B6B6B] mb-1 block">Ikon</label>
+        <label className="text-xs font-medium text-[#64748B] mb-1 block">Ikon</label>
         <div className="flex flex-wrap gap-1.5">
           {ICON_OPTIONS.map((ic) => (
             <button
@@ -81,16 +81,16 @@ function AccountForm({ initial, onSave, onCancel }: {
               onClick={() => setIcon(ic)}
               className={cn(
                 "w-9 h-9 rounded-btn flex items-center justify-center border transition-all",
-                icon === ic ? "bg-primary-light border-primary" : "bg-white border-[#E0E0E0]"
+                icon === ic ? "bg-primary-light border-primary" : "bg-white border-c-border"
               )}
             >
-              <LucideIcon name={ic} size={16} className={icon === ic ? "text-primary" : "text-[#6B6B6B]"} />
+              <LucideIcon name={ic} size={16} className={icon === ic ? "text-primary" : "text-[#64748B]"} />
             </button>
           ))}
         </div>
       </div>
       <div>
-        <label className="text-xs font-medium text-[#6B6B6B] mb-1 block">Warna</label>
+        <label className="text-xs font-medium text-[#64748B] mb-1 block">Warna</label>
         <div className="flex gap-1.5">
           {COLOR_OPTIONS.map((c) => (
             <button
@@ -106,27 +106,27 @@ function AccountForm({ initial, onSave, onCancel }: {
         </div>
       </div>
       <div>
-        <label className="text-xs font-medium text-[#6B6B6B] mb-1 block">Saldo</label>
-        <div className="flex items-center border border-[#E0E0E0] rounded-btn px-3 py-2 gap-1.5 focus-within:border-primary">
-          <span className="text-sm text-[#6B6B6B]">Rp</span>
+        <label className="text-xs font-medium text-[#64748B] mb-1 block">Saldo</label>
+        <div className="flex items-center border border-c-border rounded-btn px-3 py-2 gap-1.5 focus-within:border-primary">
+          <span className="text-sm text-[#64748B]">Rp</span>
           <input
             type="text"
             inputMode="numeric"
             value={balance ? parseInt(balance.replace(/\D/g,"")).toLocaleString("id-ID") : ""}
             onChange={(e) => setBalance(e.target.value.replace(/\D/g,""))}
             placeholder="0"
-            className="flex-1 text-sm font-semibold text-[#1A1A1A] outline-none bg-transparent tabular-nums"
+            className="flex-1 text-sm font-semibold text-[#0F172A] outline-none bg-transparent tabular-nums"
           />
         </div>
       </div>
       <div className="flex gap-2 pt-1">
-        <button onClick={onCancel} className="flex-1 py-2.5 border border-[#E0E0E0] rounded-btn text-sm font-medium text-[#6B6B6B] hover:bg-surface transition-colors">
+        <button onClick={onCancel} className="flex-1 py-2.5 border border-c-border rounded-btn text-sm font-medium text-[#64748B] hover:bg-surface-2 transition-colors">
           Batal
         </button>
         <button
           onClick={() => name && onSave({ name, type, icon, color, balance: parseInt(balance.replace(/\D/g,"") || "0") })}
           disabled={!name}
-          className="flex-1 py-2.5 bg-primary rounded-btn text-sm font-semibold text-white hover:bg-primary-dark disabled:bg-[#E0E0E0] disabled:text-[#6B6B6B] transition-colors"
+          className="flex-1 py-2.5 bg-primary rounded-btn text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-50 transition-colors"
         >
           Simpan
         </button>
@@ -193,7 +193,7 @@ export default function AkunPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-[#1A1A1A]">Akun</h1>
+        <h1 className="text-xl font-bold text-[#0F172A]">Akun</h1>
         <button
           onClick={() => setShowForm(true)}
           className="flex items-center gap-1.5 px-3 py-2 bg-primary text-white text-sm font-semibold rounded-btn hover:bg-primary-dark transition-colors"
@@ -204,7 +204,7 @@ export default function AkunPage() {
       </div>
 
       {/* Total balance */}
-      <div className="bg-primary rounded-card p-4 text-white">
+      <div className="hero-gradient rounded-xl2 p-4 text-white shadow-fab">
         <p className="text-sm opacity-80 mb-1">Total Saldo</p>
         <p className="text-3xl font-bold tabular-nums">{formatRupiah(totalBalance)}</p>
         <p className="text-xs opacity-70 mt-1">{accounts.length} akun aktif</p>
@@ -222,7 +222,7 @@ export default function AkunPage() {
       {loading ? (
         <div className="space-y-3">
           {[1,2,3].map((i) => (
-            <div key={i} className="h-20 bg-white rounded-card border border-[#E0E0E0] animate-pulse" />
+            <div key={i} className="h-20 bg-white rounded-card border border-c-border animate-pulse" />
           ))}
         </div>
       ) : accounts.length === 0 && !showForm ? (
@@ -243,7 +243,7 @@ export default function AkunPage() {
                   onCancel={() => setEditingId(null)}
                 />
               ) : (
-                <div className="bg-white rounded-card border border-[#E0E0E0] shadow-sm p-4 flex items-center gap-4">
+                <div className="bg-white rounded-card border border-c-border shadow-card p-4 flex items-center gap-4">
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
                     style={{ backgroundColor: acc.color + "20" }}
@@ -251,22 +251,22 @@ export default function AkunPage() {
                     <LucideIcon name={acc.icon} size={22} style={{ color: acc.color }} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-[#1A1A1A]">{acc.name}</p>
-                    <p className="text-xs text-[#6B6B6B]">
+                    <p className="text-sm font-semibold text-[#0F172A]">{acc.name}</p>
+                    <p className="text-xs text-[#64748B]">
                       {ACCOUNT_TYPES.find((t) => t.value === acc.type)?.label ?? acc.type}
                     </p>
-                    <p className="text-base font-bold text-[#1A1A1A] tabular-nums mt-0.5">{formatRupiah(acc.balance)}</p>
+                    <p className="text-base font-bold text-[#0F172A] tabular-nums mt-0.5">{formatRupiah(acc.balance)}</p>
                   </div>
                   <div className="flex gap-1">
                     <button
                       onClick={() => setEditingId(acc.id)}
-                      className="p-2 rounded-full hover:bg-surface transition-colors text-[#6B6B6B]"
+                      className="p-2 rounded-full hover:bg-surface-2 transition-colors text-[#64748B]"
                     >
                       <Edit2 size={15} />
                     </button>
                     <button
                       onClick={() => handleDelete(acc.id)}
-                      className="p-2 rounded-full hover:bg-danger-light hover:text-danger transition-colors text-[#6B6B6B]"
+                      className="p-2 rounded-full hover:bg-danger-light hover:text-danger transition-colors text-[#64748B]"
                     >
                       <Trash2 size={15} />
                     </button>
@@ -280,29 +280,29 @@ export default function AkunPage() {
 
       {/* Links to sub-pages */}
       <div className="space-y-2 pt-2">
-        <Link href="/kartu-kredit" className="flex items-center justify-between bg-white rounded-card border border-[#E0E0E0] shadow-sm px-4 py-3 hover:bg-surface transition-colors">
+        <Link href="/kartu-kredit" className="flex items-center justify-between bg-white rounded-card border border-c-border shadow-card px-4 py-3 hover:bg-surface-2 transition-colors">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-primary-light flex items-center justify-center">
               <CreditCard size={18} className="text-primary" />
             </div>
             <div>
-              <p className="text-sm font-medium text-[#1A1A1A]">Kartu Kredit</p>
-              <p className="text-xs text-[#6B6B6B]">Kelola kartu kredit & limit</p>
+              <p className="text-sm font-medium text-[#0F172A]">Kartu Kredit</p>
+              <p className="text-xs text-[#64748B]">Kelola kartu kredit & limit</p>
             </div>
           </div>
-          <ArrowRight size={16} className="text-[#6B6B6B]" />
+          <ArrowRight size={16} className="text-[#64748B]" />
         </Link>
-        <Link href="/pinjaman" className="flex items-center justify-between bg-white rounded-card border border-[#E0E0E0] shadow-sm px-4 py-3 hover:bg-surface transition-colors">
+        <Link href="/pinjaman" className="flex items-center justify-between bg-white rounded-card border border-c-border shadow-card px-4 py-3 hover:bg-surface-2 transition-colors">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-warning-light flex items-center justify-center">
               <Landmark size={18} className="text-warning" />
             </div>
             <div>
-              <p className="text-sm font-medium text-[#1A1A1A]">Pinjaman</p>
-              <p className="text-xs text-[#6B6B6B]">Hutang & piutang</p>
+              <p className="text-sm font-medium text-[#0F172A]">Pinjaman</p>
+              <p className="text-xs text-[#64748B]">Hutang & piutang</p>
             </div>
           </div>
-          <ArrowRight size={16} className="text-[#6B6B6B]" />
+          <ArrowRight size={16} className="text-[#64748B]" />
         </Link>
       </div>
     </div>

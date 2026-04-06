@@ -1,35 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ──────────────────────────────────────────────────────────────
-   PRD SECTION 12 — Design Tokens
+   DESIGN SYSTEM — Minimalist + Playful (UI/UX Pro Max)
+   Style: Soft UI Evolution × Flat Design hybrid
+   Font: Plus Jakarta Sans
    ────────────────────────────────────────────────────────────── */
 :root {
-  /* Brand */
-  --color-primary:        #68B684;
-  --color-primary-light:  #F0F7F2;
-  --color-primary-dark:   #4E9E6A;
+  /* Brand — Indigo (modern, trustworthy, playful) */
+  --color-primary:        #6366F1;
+  --color-primary-light:  #EEF2FF;
+  --color-primary-dark:   #4F46E5;
+  --color-primary-muted:  #C7D2FE;
 
-  /* Text */
-  --color-text-primary:   #1A1A1A;
-  --color-text-secondary: #3D3D3D;
-  --color-text-muted:     #6B6B6B;
+  /* Text — Slate scale for cleaner hierarchy */
+  --color-text-primary:   #0F172A;
+  --color-text-secondary: #334155;
+  --color-text-muted:     #64748B;
 
-  /* Surfaces */
-  --color-surface:        #F5F5F5;
-  --color-border:         #E0E0E0;
+  /* Surfaces — Slate-50 base, slightly blue-tinted (cleaner than gray) */
+  --color-surface:        #F8FAFC;
+  --color-surface-2:      #F1F5F9;
+  --color-border:         #E2E8F0;
   --color-white:          #FFFFFF;
 
   /* Semantic */
-  --color-success:        #3D8A57;
-  --color-success-light:  #EAF4EE;
-  --color-warning:        #C97C2A;
-  --color-warning-light:  #FDF3E3;
-  --color-danger:         #C94040;
-  --color-danger-light:   #FAEBEB;
+  --color-success:        #10B981;
+  --color-success-light:  #ECFDF5;
+  --color-warning:        #F59E0B;
+  --color-warning-light:  #FFFBEB;
+  --color-danger:         #EF4444;
+  --color-danger-light:   #FEF2F2;
 
   /* Spacing scale (8pt grid) */
   --space-1: 4px;
@@ -55,7 +57,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background-color: var(--color-surface);
   color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
@@ -66,7 +68,6 @@ body {
 /* ──────────────────────────────────────────────────────────────
    TYPOGRAPHY
    ────────────────────────────────────────────────────────────── */
-/* Tabular nums for all currency/number displays */
 .tabular-nums,
 [class*="currency"],
 [data-currency],
@@ -80,7 +81,7 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -98,19 +99,18 @@ body {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C4C4C4;
+  background: var(--color-primary-muted);
 }
 
 /* ──────────────────────────────────────────────────────────────
-   TRANSITIONS (global — only for color/border, not layout)
+   TRANSITIONS (global)
    ────────────────────────────────────────────────────────────── */
 button, a, input, select, textarea {
-  transition-property: background-color, border-color, color, box-shadow;
+  transition-property: background-color, border-color, color, box-shadow, opacity;
   transition-duration: 150ms;
   transition-timing-function: ease-in-out;
 }
 
-/* Override — keep animations clean */
 [class*="animate-"] {
   transition: none;
 }
@@ -123,10 +123,10 @@ button, a, input, select, textarea {
 }
 
 /* ──────────────────────────────────────────────────────────────
-   DATE INPUT — reset calendar picker icon to match light theme
+   DATE INPUT
    ────────────────────────────────────────────────────────────── */
 input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: pointer;
 }
 
@@ -136,13 +136,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .skeleton {
   background: linear-gradient(
     90deg,
-    var(--color-border) 0%,
-    #F0F0F0 50%,
-    var(--color-border) 100%
+    var(--color-surface-2) 0%,
+    #E8EFFE 50%,
+    var(--color-surface-2) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite linear;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 @keyframes shimmer {
@@ -154,7 +154,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
    PROGRESS BAR ANIMATIONS
    ────────────────────────────────────────────────────────────── */
 .progress-fill {
-  transition: width 400ms ease-out, background-color 300ms ease;
+  transition: width 500ms cubic-bezier(0.34, 1.56, 0.64, 1), background-color 300ms ease;
 }
 
 .progress-overspend {
@@ -170,8 +170,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
    BOTTOM SHEET
    ────────────────────────────────────────────────────────────── */
 .sheet-overlay {
-  background: rgba(0, 0, 0, 0.4);
-  animation: fadeOverlay 0.2s ease-out;
+  background: rgba(15, 23, 42, 0.5);
+  animation: fadeOverlay 0.25s ease-out;
 }
 
 @keyframes fadeOverlay {
@@ -180,7 +180,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .sheet-content {
-  animation: slideUpSheet 0.2s ease-out;
+  animation: slideUpSheet 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes slideUpSheet {
@@ -197,6 +197,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 /* ──────────────────────────────────────────────────────────────
+   HERO GRADIENT — Primary card background
+   ────────────────────────────────────────────────────────────── */
+.hero-gradient {
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+}
+
+/* ──────────────────────────────────────────────────────────────
    RECHARTS overrides
    ────────────────────────────────────────────────────────────── */
 .recharts-tooltip-wrapper {
@@ -204,12 +211,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .recharts-cartesian-axis-tick-value {
-  font-size: 12px;
+  font-size: 11px;
   fill: var(--color-text-muted);
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* ──────────────────────────────────────────────────────────────
-   REDUCED MOTION — wrap non-essential animations
+   REDUCED MOTION
    ────────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .skeleton,
@@ -219,6 +227,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
   .progress-fill {
     transition: none !important;
+  }
+  .sheet-content {
+    animation: none !important;
   }
 }
 
@@ -230,7 +241,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     text-wrap: balance;
   }
 
-  /* Horizontal scrolling chips row */
   .chips-row {
     display: flex;
     gap: 8px;

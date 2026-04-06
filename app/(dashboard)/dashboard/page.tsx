@@ -68,7 +68,6 @@ export default function DashboardPage() {
     fetchData();
   }, [fetchData]);
 
-  // Listen for transaction-added events from layout FAB
   useEffect(() => {
     const handler = () => fetchData();
     window.addEventListener("transaction-added", handler);
@@ -101,39 +100,38 @@ export default function DashboardPage() {
   return (
     <div className="space-y-5">
       {/* Greeting */}
-      <div>
-        <p className="text-sm text-[#6B6B6B]">{getDayGreeting()}</p>
-      </div>
+      <p className="text-sm text-[#64748B]">{getDayGreeting()}</p>
 
       {/* Budget Alert Banner */}
       {overallBudget && budgetPct >= 0.8 && (
         <div className={cn(
-          "rounded-card px-4 py-3 text-sm font-medium",
+          "rounded-card px-4 py-3 text-sm font-semibold flex items-center gap-2",
           overBudget
             ? "bg-danger-light text-danger"
             : "bg-warning-light text-warning"
         )}>
+          <span>{overBudget ? "⚠️" : "💛"}</span>
           {overBudget
-            ? `Budget bulan ini sudah habis. Kelebihan: ${formatRupiah(overallBudget.spent - overallBudget.amount)}`
-            : `Kamu sudah pakai ${Math.round(budgetPct * 100)}% budget bulan ini. Hati-hati!`
+            ? `Budget habis! Kelebihan: ${formatRupiah(overallBudget.spent - overallBudget.amount)}`
+            : `Sudah pakai ${Math.round(budgetPct * 100)}% budget bulan ini`
           }
         </div>
       )}
 
-      {/* Month Navigation + Hero Card */}
-      <div className="bg-primary rounded-card p-5 text-white shadow-card">
+      {/* Hero Card */}
+      <div className="hero-gradient rounded-xl2 p-5 text-white shadow-fab">
         {/* Month nav */}
         <div className="flex items-center justify-between mb-4">
-          <button onClick={prevMonth} className="p-1.5 rounded-full hover:bg-white/20 transition-colors">
+          <button onClick={prevMonth} className="cursor-pointer p-1.5 rounded-full hover:bg-white/20 transition-colors">
             <ChevronLeft size={18} />
           </button>
-          <span className="text-sm font-semibold opacity-90">
+          <span className="text-sm font-semibold opacity-90 tracking-wide">
             {MONTH_NAMES_ID[month - 1]} {year}
           </span>
           <button
             onClick={nextMonth}
             disabled={isCurrentMonth}
-            className="p-1.5 rounded-full hover:bg-white/20 transition-colors disabled:opacity-30"
+            className="cursor-pointer p-1.5 rounded-full hover:bg-white/20 transition-colors disabled:opacity-30"
           >
             <ChevronRight size={18} />
           </button>
@@ -141,39 +139,39 @@ export default function DashboardPage() {
 
         {/* Total balance */}
         <div className="text-center mb-5">
-          <p className="text-sm opacity-80 mb-1">Total Saldo</p>
+          <p className="text-xs font-semibold uppercase tracking-widest opacity-70 mb-1">Total Saldo</p>
           <p className="text-4xl font-bold tabular-nums">{formatRupiah(data.totalBalance)}</p>
         </div>
 
         {/* Income / Expense */}
         <div className="flex gap-3">
-          <div className="flex-1 bg-white/15 rounded-xl p-3 flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center">
-              <TrendingUp size={14} />
+          <div className="flex-1 bg-white/15 backdrop-blur-sm rounded-xl p-3 flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+              <TrendingUp size={15} />
             </div>
             <div>
-              <p className="text-xs opacity-70">Pemasukan</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wider opacity-70">Masuk</p>
               <p className="text-sm font-bold tabular-nums">{formatRupiah(data.totalIncome)}</p>
             </div>
           </div>
-          <div className="flex-1 bg-white/15 rounded-xl p-3 flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center">
-              <TrendingDown size={14} />
+          <div className="flex-1 bg-white/15 backdrop-blur-sm rounded-xl p-3 flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+              <TrendingDown size={15} />
             </div>
             <div>
-              <p className="text-xs opacity-70">Pengeluaran</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wider opacity-70">Keluar</p>
               <p className="text-sm font-bold tabular-nums">{formatRupiah(data.totalExpense)}</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Account list */}
+      {/* Account chips */}
       <div>
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-base font-semibold text-[#1A1A1A]">Akun</h2>
-          <Link href="/akun" className="text-xs text-primary font-medium flex items-center gap-0.5">
-            Lihat semua <ArrowRight size={12} />
+        <div className="flex items-center justify-between mb-2.5">
+          <h2 className="text-sm font-bold text-[#0F172A]">Akun</h2>
+          <Link href="/akun" className="text-xs text-primary font-semibold flex items-center gap-0.5 hover:text-primary-dark transition-colors">
+            Lihat semua <ArrowRight size={11} />
           </Link>
         </div>
         {data.accounts.length === 0 ? (
@@ -181,27 +179,27 @@ export default function DashboardPage() {
         ) : (
           <div className="chips-row">
             {data.accounts.map((acc) => (
-              <div key={acc.id} className="flex-shrink-0 bg-white rounded-card px-4 py-3 border border-[#E0E0E0] min-w-[140px] shadow-sm">
+              <div key={acc.id} className="flex-shrink-0 bg-white rounded-card px-4 py-3 border border-c-border min-w-[140px] shadow-card cursor-default">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-7 h-7 rounded-lg bg-primary-light flex items-center justify-center">
                     <LucideIcon name={acc.icon} size={14} className="text-primary" />
                   </div>
-                  <span className="text-xs text-[#6B6B6B] font-medium truncate">{acc.name}</span>
+                  <span className="text-xs text-[#64748B] font-medium truncate">{acc.name}</span>
                 </div>
-                <p className="text-sm font-bold text-[#1A1A1A] tabular-nums">{formatRupiah(acc.balance)}</p>
+                <p className="text-sm font-bold text-[#0F172A] tabular-nums">{formatRupiah(acc.balance)}</p>
               </div>
             ))}
           </div>
         )}
       </div>
 
-      {/* Overall Budget snapshot */}
+      {/* Overall Budget */}
       {overallBudget && (
-        <div className="bg-white rounded-card p-4 border border-[#E0E0E0] shadow-sm">
+        <div className="bg-white rounded-card p-4 border border-c-border shadow-card">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-base font-semibold text-[#1A1A1A]">Budget Bulan Ini</h2>
-            <Link href="/budget-goals" className="text-xs text-primary font-medium flex items-center gap-0.5">
-              Detail <ArrowRight size={12} />
+            <h2 className="text-sm font-bold text-[#0F172A]">Budget Bulan Ini</h2>
+            <Link href="/budget-goals" className="text-xs text-primary font-semibold flex items-center gap-0.5 hover:text-primary-dark transition-colors">
+              Detail <ArrowRight size={11} />
             </Link>
           </div>
           <ProgressBar value={overallBudget.spent} max={overallBudget.amount} showValues />
@@ -210,22 +208,22 @@ export default function DashboardPage() {
 
       {/* Category budgets (top 3) */}
       {data.budgets.filter((b) => b.category).length > 0 && (
-        <div className="bg-white rounded-card p-4 border border-[#E0E0E0] shadow-sm">
+        <div className="bg-white rounded-card p-4 border border-c-border shadow-card">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-base font-semibold text-[#1A1A1A]">Budget Kategori</h2>
-            <Link href="/budget-goals" className="text-xs text-primary font-medium flex items-center gap-0.5">
-              Lihat semua <ArrowRight size={12} />
+            <h2 className="text-sm font-bold text-[#0F172A]">Budget Kategori</h2>
+            <Link href="/budget-goals" className="text-xs text-primary font-semibold flex items-center gap-0.5 hover:text-primary-dark transition-colors">
+              Lihat semua <ArrowRight size={11} />
             </Link>
           </div>
           <div className="space-y-3">
             {data.budgets.filter((b) => b.category).slice(0, 3).map((b) => (
               <div key={b.id}>
-                <div className="flex items-center justify-between mb-1">
+                <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-1.5">
-                    <LucideIcon name={b.category!.icon} size={13} className="text-[#6B6B6B]" />
-                    <span className="text-sm text-[#3D3D3D] font-medium">{b.category!.name}</span>
+                    <LucideIcon name={b.category!.icon} size={13} className="text-[#64748B]" />
+                    <span className="text-sm text-[#334155] font-medium">{b.category!.name}</span>
                   </div>
-                  <span className="text-xs text-[#6B6B6B] tabular-nums">{formatRupiah(b.spent)} / {formatRupiah(b.amount)}</span>
+                  <span className="text-xs text-[#64748B] tabular-nums">{formatRupiah(b.spent)} / {formatRupiah(b.amount)}</span>
                 </div>
                 <ProgressBar value={b.spent} max={b.amount} />
               </div>
@@ -236,14 +234,14 @@ export default function DashboardPage() {
 
       {/* Goals snapshot */}
       {data.goals.length > 0 && (
-        <div className="bg-white rounded-card p-4 border border-[#E0E0E0] shadow-sm">
+        <div className="bg-white rounded-card p-4 border border-c-border shadow-card">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-base font-semibold text-[#1A1A1A]">Goals Tabungan</h2>
-            <Link href="/budget-goals" className="text-xs text-primary font-medium flex items-center gap-0.5">
-              Lihat semua <ArrowRight size={12} />
+            <h2 className="text-sm font-bold text-[#0F172A]">Goals Tabungan</h2>
+            <Link href="/budget-goals" className="text-xs text-primary font-semibold flex items-center gap-0.5 hover:text-primary-dark transition-colors">
+              Lihat semua <ArrowRight size={11} />
             </Link>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-3">
             {data.goals.map((goal) => {
               const pct = Math.min(goal.saved_amount / goal.target_amount, 1);
               return (
@@ -251,8 +249,8 @@ export default function DashboardPage() {
                   <span className="text-xl flex-shrink-0">{goal.icon}</span>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-sm font-medium text-[#1A1A1A] truncate">{goal.name}</span>
-                      <span className="text-xs text-[#6B6B6B] tabular-nums ml-2 flex-shrink-0">{Math.round(pct * 100)}%</span>
+                      <span className="text-sm font-semibold text-[#0F172A] truncate">{goal.name}</span>
+                      <span className="text-xs text-[#64748B] tabular-nums ml-2 flex-shrink-0">{Math.round(pct * 100)}%</span>
                     </div>
                     <ProgressBar value={goal.saved_amount} max={goal.target_amount} />
                   </div>
@@ -265,46 +263,43 @@ export default function DashboardPage() {
 
       {/* Recent Transactions */}
       <div>
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-base font-semibold text-[#1A1A1A]">Transaksi Terakhir</h2>
-          <Link href="/transaksi" className="text-xs text-primary font-medium flex items-center gap-0.5">
-            Lihat semua <ArrowRight size={12} />
+        <div className="flex items-center justify-between mb-2.5">
+          <h2 className="text-sm font-bold text-[#0F172A]">Transaksi Terakhir</h2>
+          <Link href="/transaksi" className="text-xs text-primary font-semibold flex items-center gap-0.5 hover:text-primary-dark transition-colors">
+            Lihat semua <ArrowRight size={11} />
           </Link>
         </div>
         {data.recentTransactions.length === 0 ? (
           <EmptyState
             icon="Receipt"
             title="Belum ada transaksi"
-            description="Tap tombol + untuk catat pengeluaran pertamamu"
+            description="Tap tombol + untuk catat transaksi pertamamu"
             compact
           />
         ) : (
-          <div className="bg-white rounded-card border border-[#E0E0E0] shadow-sm divide-y divide-[#E0E0E0]">
+          <div className="bg-white rounded-card border border-c-border shadow-card divide-y divide-c-border">
             {data.recentTransactions.map((tx) => (
               <div key={tx.id} className="flex items-center gap-3 px-4 py-3">
-                {/* Icon */}
                 <div
                   className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: tx.category?.color ? tx.category.color + "20" : "#F5F5F5" }}
+                  style={{ backgroundColor: tx.category?.color ? tx.category.color + "18" : "#F1F5F9" }}
                 >
                   {tx.category ? (
                     <LucideIcon name={tx.category.icon} size={16} style={{ color: tx.category.color }} />
                   ) : (
-                    <Wallet size={16} className="text-[#6B6B6B]" />
+                    <Wallet size={16} className="text-[#94A3B8]" />
                   )}
                 </div>
-                {/* Info */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-[#1A1A1A] truncate">
+                  <p className="text-sm font-semibold text-[#0F172A] truncate">
                     {tx.note ?? tx.category?.name ?? "Transaksi"}
                   </p>
-                  <p className="text-xs text-[#6B6B6B]">
+                  <p className="text-xs text-[#64748B]">
                     {tx.account?.name} · {formatRelativeDate(tx.date)}
                   </p>
                 </div>
-                {/* Amount */}
                 <p className={cn(
-                  "text-sm font-semibold tabular-nums flex-shrink-0",
+                  "text-sm font-bold tabular-nums flex-shrink-0",
                   tx.type === "INCOME" ? "text-success" : "text-danger"
                 )}>
                   {tx.type === "INCOME" ? "+" : "-"}{formatRupiah(tx.amount)}

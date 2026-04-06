@@ -18,8 +18,8 @@ export function BottomNav() {
 
   return (
     <nav
-      className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-[#E0E0E0] safe-bottom"
-      style={{ boxShadow: "0 -1px 8px rgba(0,0,0,0.06)" }}
+      className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-c-border safe-bottom"
+      style={{ boxShadow: "0 -4px 20px rgba(99,102,241,0.06)" }}
     >
       <ul className="flex items-center h-16">
         {NAV_ITEMS.map(({ href, icon: Icon, label }) => {
@@ -30,17 +30,21 @@ export function BottomNav() {
                 href={href}
                 aria-label={label}
                 className={cn(
-                  "flex flex-col items-center justify-center gap-0.5 h-16 text-xs font-medium w-full",
-                  "transition-colors relative",
-                  active ? "text-primary" : "text-[#6B6B6B]"
+                  "flex flex-col items-center justify-center gap-0.5 h-16 w-full",
+                  "transition-colors relative cursor-pointer",
+                  active ? "text-primary" : "text-[#94A3B8]"
                 )}
               >
-                {/* Active indicator dot */}
+                {/* Active pill indicator */}
                 {active && (
-                  <span className="absolute top-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary" />
+                  <span className="absolute top-1.5 left-1/2 -translate-x-1/2 w-5 h-1 rounded-chip bg-primary opacity-70" />
                 )}
-                <Icon size={22} strokeWidth={active ? 2.5 : 1.8} />
-                <span>{label}</span>
+                <Icon
+                  size={22}
+                  strokeWidth={active ? 2.5 : 1.8}
+                  className={cn(active && "drop-shadow-[0_0_6px_rgba(99,102,241,0.4)]")}
+                />
+                <span className={cn("text-[10px] font-semibold tracking-tight", active && "font-bold")}>{label}</span>
               </Link>
             </li>
           );

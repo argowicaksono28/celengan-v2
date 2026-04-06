@@ -120,10 +120,10 @@ export default function ProfilPage() {
 
   return (
     <div className="space-y-5">
-      <h1 className="text-xl font-bold text-[#1A1A1A]">Profil</h1>
+      <h1 className="text-xl font-bold text-[#0F172A]">Profil</h1>
 
       {/* Profile card */}
-      <div className="bg-white rounded-card border border-[#E0E0E0] shadow-sm p-4">
+      <div className="bg-white rounded-card border border-c-border shadow-card p-4">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-12 h-12 rounded-full bg-primary-light flex items-center justify-center flex-shrink-0">
             <span className="text-primary font-bold text-lg">
@@ -131,24 +131,24 @@ export default function ProfilPage() {
             </span>
           </div>
           <div>
-            <p className="text-sm font-semibold text-[#1A1A1A]">{profile?.name ?? "—"}</p>
-            <p className="text-xs text-[#6B6B6B]">{email}</p>
+            <p className="text-sm font-semibold text-[#0F172A]">{profile?.name ?? "—"}</p>
+            <p className="text-xs text-[#64748B]">{email}</p>
           </div>
         </div>
         <div className="space-y-2">
           <div>
-            <label className="text-xs font-medium text-[#6B6B6B] mb-1 block">Nama</label>
+            <label className="text-xs font-medium text-[#64748B] mb-1 block">Nama</label>
             <div className="flex gap-2">
               <input
                 type="text"
                 value={editName}
                 onChange={(e) => setEditName(e.target.value.slice(0, 50))}
-                className="flex-1 px-3 py-2 border border-[#E0E0E0] rounded-btn text-sm text-[#1A1A1A] focus:outline-none focus:border-primary"
+                className="flex-1 px-3 py-2 border border-c-border rounded-btn text-sm text-[#0F172A] focus:outline-none focus:border-primary"
               />
               <button
                 onClick={handleSaveName}
                 disabled={savingName || editName === profile?.name}
-                className="px-3 py-2 bg-primary text-white text-sm font-medium rounded-btn hover:bg-primary-dark disabled:bg-[#E0E0E0] disabled:text-[#6B6B6B] transition-colors"
+                className="px-3 py-2 bg-primary text-white text-sm font-medium rounded-btn hover:bg-primary-dark disabled:opacity-50 transition-colors"
               >
                 {savingName ? "..." : "Simpan"}
               </button>
@@ -159,24 +159,24 @@ export default function ProfilPage() {
 
       {/* Quick links */}
       <div className="space-y-2">
-        <Link href="/insights" className="flex items-center justify-between bg-white rounded-card border border-[#E0E0E0] shadow-sm px-4 py-3 hover:bg-surface transition-colors">
+        <Link href="/insights" className="flex items-center justify-between bg-white rounded-card border border-c-border shadow-card px-4 py-3 hover:bg-surface-2 transition-colors">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-primary-light flex items-center justify-center">
               <BarChart2 size={18} className="text-primary" />
             </div>
             <div>
-              <p className="text-sm font-medium text-[#1A1A1A]">Insights</p>
-              <p className="text-xs text-[#6B6B6B]">Analisa pola pengeluaran</p>
+              <p className="text-sm font-medium text-[#0F172A]">Insights</p>
+              <p className="text-xs text-[#64748B]">Analisa pola pengeluaran</p>
             </div>
           </div>
-          <ChevronRight size={16} className="text-[#6B6B6B]" />
+          <ChevronRight size={16} className="text-[#64748B]" />
         </Link>
       </div>
 
       {/* Categories */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-base font-semibold text-[#1A1A1A]">Kategori Kustom</h2>
+          <h2 className="text-base font-semibold text-[#0F172A]">Kategori Kustom</h2>
           <button
             onClick={() => setShowCatForm(true)}
             className="flex items-center gap-1 text-xs text-primary font-medium hover:underline"
@@ -186,21 +186,21 @@ export default function ProfilPage() {
         </div>
 
         {showCatForm && (
-          <div className="bg-white rounded-card border border-[#E0E0E0] p-4 mb-3 space-y-3">
+          <div className="bg-white rounded-card border border-c-border p-4 mb-3 space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold text-[#1A1A1A]">Kategori Baru</p>
-              <button onClick={() => setShowCatForm(false)}><X size={16} className="text-[#6B6B6B]" /></button>
+              <p className="text-sm font-semibold text-[#0F172A]">Kategori Baru</p>
+              <button onClick={() => setShowCatForm(false)}><X size={16} className="text-[#64748B]" /></button>
             </div>
             <input
               type="text"
               value={catName}
               onChange={(e) => setCatName(e.target.value.slice(0, 30))}
               placeholder="Nama kategori"
-              className="w-full px-3 py-2 border border-[#E0E0E0] rounded-btn text-sm focus:outline-none focus:border-primary"
+              className="w-full px-3 py-2 border border-c-border rounded-btn text-sm focus:outline-none focus:border-primary"
               autoFocus
             />
             <div>
-              <label className="text-xs text-[#6B6B6B] mb-1 block">Tipe</label>
+              <label className="text-xs text-[#64748B] mb-1 block">Tipe</label>
               <div className="flex gap-2">
                 {(["EXPENSE","INCOME","BOTH"] as const).map((t) => (
                   <button
@@ -208,7 +208,7 @@ export default function ProfilPage() {
                     onClick={() => setCatType(t)}
                     className={cn(
                       "flex-1 py-1.5 rounded-chip text-xs font-medium border transition-all",
-                      catType === t ? "bg-primary text-white border-primary" : "bg-white border-[#E0E0E0] text-[#6B6B6B]"
+                      catType === t ? "bg-primary text-white border-primary" : "bg-white border-c-border text-[#64748B]"
                     )}
                   >
                     {t === "EXPENSE" ? "Keluar" : t === "INCOME" ? "Masuk" : "Keduanya"}
@@ -217,7 +217,7 @@ export default function ProfilPage() {
               </div>
             </div>
             <div>
-              <label className="text-xs text-[#6B6B6B] mb-1 block">Ikon</label>
+              <label className="text-xs text-[#64748B] mb-1 block">Ikon</label>
               <div className="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto">
                 {CUSTOM_CATEGORY_ICONS.slice(0, 24).map((ic) => (
                   <button
@@ -225,23 +225,23 @@ export default function ProfilPage() {
                     onClick={() => setCatIcon(ic)}
                     className={cn(
                       "w-8 h-8 rounded-btn flex items-center justify-center border transition-all",
-                      catIcon === ic ? "bg-primary-light border-primary" : "bg-white border-[#E0E0E0]"
+                      catIcon === ic ? "bg-primary-light border-primary" : "bg-white border-c-border"
                     )}
                   >
-                    <LucideIcon name={ic} size={14} className={catIcon === ic ? "text-primary" : "text-[#6B6B6B]"} />
+                    <LucideIcon name={ic} size={14} className={catIcon === ic ? "text-primary" : "text-[#64748B]"} />
                   </button>
                 ))}
               </div>
             </div>
             <div>
-              <label className="text-xs text-[#6B6B6B] mb-1 block">Warna</label>
+              <label className="text-xs text-[#64748B] mb-1 block">Warna</label>
               <div className="flex flex-wrap gap-1.5">
                 {CATEGORY_COLORS.map((c) => (
                   <button
                     key={c}
                     onClick={() => setCatColor(c)}
                     style={{ backgroundColor: c }}
-                    className={cn("w-7 h-7 rounded-full border-2 transition-all", catColor === c ? "border-[#1A1A1A] scale-110" : "border-transparent")}
+                    className={cn("w-7 h-7 rounded-full border-2 transition-all", catColor === c ? "border-[#0F172A] scale-110" : "border-transparent")}
                   />
                 ))}
               </div>
@@ -249,7 +249,7 @@ export default function ProfilPage() {
             <button
               onClick={handleSaveCategory}
               disabled={savingCat || !catName}
-              className="w-full py-2.5 bg-primary rounded-btn text-sm font-semibold text-white hover:bg-primary-dark disabled:bg-[#E0E0E0] disabled:text-[#6B6B6B] transition-colors"
+              className="w-full py-2.5 bg-primary rounded-btn text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-50 transition-colors"
             >
               {savingCat ? "Menyimpan..." : "Simpan Kategori"}
             </button>
@@ -258,11 +258,11 @@ export default function ProfilPage() {
 
         {/* User categories */}
         {loading ? (
-          <div className="h-12 bg-white rounded-card border border-[#E0E0E0] animate-pulse" />
+          <div className="h-12 bg-white rounded-card border border-c-border animate-pulse" />
         ) : userCategories.length === 0 ? (
-          <p className="text-sm text-[#6B6B6B] px-1">Belum ada kategori kustom.</p>
+          <p className="text-sm text-[#64748B] px-1">Belum ada kategori kustom.</p>
         ) : (
-          <div className="bg-white rounded-card border border-[#E0E0E0] shadow-sm divide-y divide-[#E0E0E0]">
+          <div className="bg-white rounded-card border border-c-border shadow-card divide-y divide-c-border">
             {userCategories.map((cat) => (
               <div key={cat.id} className="flex items-center gap-3 px-4 py-2.5">
                 <div
@@ -271,8 +271,8 @@ export default function ProfilPage() {
                 >
                   <LucideIcon name={cat.icon} size={14} style={{ color: cat.color }} />
                 </div>
-                <span className="flex-1 text-sm text-[#1A1A1A]">{cat.name}</span>
-                <span className="text-xs text-[#6B6B6B]">
+                <span className="flex-1 text-sm text-[#0F172A]">{cat.name}</span>
+                <span className="text-xs text-[#64748B]">
                   {cat.tx_type === "EXPENSE" ? "Keluar" : cat.tx_type === "INCOME" ? "Masuk" : "Keduanya"}
                 </span>
                 <button
@@ -287,8 +287,8 @@ export default function ProfilPage() {
         )}
 
         {/* Default categories (read-only) */}
-        <p className="text-xs font-medium text-[#6B6B6B] uppercase tracking-wide mt-4 mb-2 px-1">Kategori Default</p>
-        <div className="bg-white rounded-card border border-[#E0E0E0] shadow-sm divide-y divide-[#E0E0E0]">
+        <p className="text-xs font-medium text-[#64748B] uppercase tracking-wide mt-4 mb-2 px-1">Kategori Default</p>
+        <div className="bg-white rounded-card border border-c-border shadow-card divide-y divide-c-border">
           {defaultCategories.map((cat) => (
             <div key={cat.id} className="flex items-center gap-3 px-4 py-2.5">
               <div
@@ -297,8 +297,8 @@ export default function ProfilPage() {
               >
                 <LucideIcon name={cat.icon} size={14} style={{ color: cat.color }} />
               </div>
-              <span className="flex-1 text-sm text-[#3D3D3D]">{cat.name}</span>
-              <span className="text-xs text-[#6B6B6B]">
+              <span className="flex-1 text-sm text-[#334155]">{cat.name}</span>
+              <span className="text-xs text-[#64748B]">
                 {cat.tx_type === "EXPENSE" ? "Keluar" : cat.tx_type === "INCOME" ? "Masuk" : "Keduanya"}
               </span>
             </div>

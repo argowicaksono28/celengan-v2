@@ -81,18 +81,18 @@ export default function LoginPage() {
   }
 
   const inputClass =
-    "w-full px-4 py-3 border border-[#E0E0E0] rounded-btn bg-white text-[#1A1A1A] placeholder-[#6B6B6B] text-base focus:outline-none focus:border-[#68B684] focus:shadow-[0_0_0_3px_rgba(104,182,132,0.15)] transition-all";
+    "w-full px-4 py-3 border border-c-border rounded-btn bg-white text-[#0F172A] placeholder:text-[#94A3B8] text-base focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.12)] transition-all";
 
   return (
     <div className="min-h-screen bg-surface flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center mx-auto mb-4 shadow-[0_4px_12px_rgba(104,182,132,0.30)]">
+          <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center mx-auto mb-4 shadow-[0_4px_12px_rgba(99,102,241,0.25)]">
             <span className="text-white text-2xl font-bold">C</span>
           </div>
-          <h1 className="text-2xl font-bold text-[#1A1A1A] tracking-tight">Celengan</h1>
-          <p className="text-[#6B6B6B] text-sm mt-1">Catat keuanganmu dengan mudah</p>
+          <h1 className="text-2xl font-bold text-[#0F172A] tracking-tight">Celengan</h1>
+          <p className="text-[#64748B] text-sm mt-1">Catat keuanganmu dengan mudah</p>
         </div>
 
         {/* Card */}
@@ -106,7 +106,7 @@ export default function LoginPage() {
                 className={`flex-1 py-2 text-sm font-medium rounded-[10px] transition-all ${
                   tab === t
                     ? "bg-primary text-white shadow-sm"
-                    : "text-[#6B6B6B] hover:text-[#1A1A1A]"
+                    : "text-[#64748B] hover:text-[#0F172A]"
                 }`}
               >
                 {t === "masuk" ? "Masuk" : "Daftar"}
@@ -123,7 +123,7 @@ export default function LoginPage() {
           {tab === "masuk" ? (
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-[#3D3D3D] mb-1.5">Email</label>
+                <label className="block text-sm font-medium text-[#334155] mb-1.5">Email</label>
                 <input
                   type="email"
                   value={loginEmail}
@@ -135,7 +135,7 @@ export default function LoginPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#3D3D3D] mb-1.5">Password</label>
+                <label className="block text-sm font-medium text-[#334155] mb-1.5">Password</label>
                 <input
                   type="password"
                   value={loginPassword}
@@ -149,7 +149,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-press w-full py-3 bg-primary text-white font-semibold rounded-btn text-base hover:bg-primary-dark disabled:bg-[#E0E0E0] disabled:text-[#6B6B6B] disabled:cursor-not-allowed transition-colors"
+                className="btn-press w-full py-3 bg-primary text-white font-semibold rounded-btn text-base hover:bg-primary-dark disabled:bg-[#E2E8F0] disabled:text-[#64748B] disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? "Memuat..." : "Masuk"}
               </button>
@@ -157,7 +157,7 @@ export default function LoginPage() {
           ) : (
             <form onSubmit={handleSignup} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-[#3D3D3D] mb-1.5">Nama</label>
+                <label className="block text-sm font-medium text-[#334155] mb-1.5">Nama</label>
                 <input
                   type="text"
                   value={signupName}
@@ -169,7 +169,7 @@ export default function LoginPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#3D3D3D] mb-1.5">Email</label>
+                <label className="block text-sm font-medium text-[#334155] mb-1.5">Email</label>
                 <input
                   type="email"
                   value={signupEmail}
@@ -181,7 +181,7 @@ export default function LoginPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#3D3D3D] mb-1.5">Password</label>
+                <label className="block text-sm font-medium text-[#334155] mb-1.5">Password</label>
                 <input
                   type="password"
                   value={signupPassword}
@@ -193,7 +193,7 @@ export default function LoginPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#3D3D3D] mb-1.5">Konfirmasi Password</label>
+                <label className="block text-sm font-medium text-[#334155] mb-1.5">Konfirmasi Password</label>
                 <input
                   type="password"
                   value={signupConfirm}
@@ -207,7 +207,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-press w-full py-3 bg-primary text-white font-semibold rounded-btn text-base hover:bg-primary-dark disabled:bg-[#E0E0E0] disabled:text-[#6B6B6B] disabled:cursor-not-allowed transition-colors"
+                className="btn-press w-full py-3 bg-primary text-white font-semibold rounded-btn text-base hover:bg-primary-dark disabled:bg-[#E2E8F0] disabled:text-[#64748B] disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? "Memuat..." : "Buat Akun"}
               </button>
@@ -216,16 +216,16 @@ export default function LoginPage() {
 
           {/* Divider */}
           <div className="flex items-center gap-3 my-5">
-            <div className="flex-1 h-px bg-[#E0E0E0]" />
-            <span className="text-xs text-[#6B6B6B]">atau</span>
-            <div className="flex-1 h-px bg-[#E0E0E0]" />
+            <div className="flex-1 h-px bg-c-border" />
+            <span className="text-xs text-[#64748B]">atau</span>
+            <div className="flex-1 h-px bg-c-border" />
           </div>
 
           {/* Google OAuth */}
           <button
             onClick={handleGoogleLogin}
             disabled={loading}
-            className="btn-press w-full py-3 border border-[#E0E0E0] bg-white text-[#3D3D3D] font-medium rounded-btn text-base flex items-center justify-center gap-3 hover:bg-surface disabled:opacity-50 transition-colors"
+            className="btn-press w-full py-3 border border-c-border bg-white text-[#334155] font-medium rounded-btn text-base flex items-center justify-center gap-3 hover:bg-surface disabled:opacity-50 transition-colors"
           >
             <svg width="18" height="18" viewBox="0 0 48 48">
               <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
@@ -237,7 +237,7 @@ export default function LoginPage() {
           </button>
         </div>
 
-        <p className="text-center text-xs text-[#6B6B6B] mt-6">
+        <p className="text-center text-xs text-[#64748B] mt-6">
           Dengan mendaftar, kamu menyetujui syarat & ketentuan Celengan.
         </p>
       </div>

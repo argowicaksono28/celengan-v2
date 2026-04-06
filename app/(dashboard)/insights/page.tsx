@@ -60,7 +60,7 @@ export default function InsightsPage() {
       for (const tx of txs.filter((t) => t.type === "EXPENSE")) {
         const key = tx.category?.name ?? "Lainnya";
         if (!catMap[key]) {
-          catMap[key] = { name: key, icon: tx.category?.icon ?? "MoreHorizontal", color: tx.category?.color ?? "#6B6B6B", amount: 0 };
+          catMap[key] = { name: key, icon: tx.category?.icon ?? "MoreHorizontal", color: tx.category?.color ?? "#94A3B8", amount: 0 };
         }
         catMap[key].amount += tx.amount;
       }
@@ -106,16 +106,16 @@ export default function InsightsPage() {
 
   return (
     <div className="space-y-5">
-      <h1 className="text-xl font-bold text-[#1A1A1A]">Insights</h1>
+      <h1 className="text-xl font-bold text-[#0F172A]">Insights</h1>
 
       {/* Month nav */}
-      <div className="flex items-center justify-between bg-white rounded-card px-4 py-2 border border-[#E0E0E0] shadow-sm">
-        <button onClick={prevMonth} className="p-1.5 rounded-full hover:bg-surface">
-          <ChevronLeft size={18} className="text-[#6B6B6B]" />
+      <div className="flex items-center justify-between bg-white rounded-card px-4 py-2 border border-c-border shadow-card">
+        <button onClick={prevMonth} className="p-1.5 rounded-full hover:bg-surface-2">
+          <ChevronLeft size={18} className="text-[#64748B]" />
         </button>
-        <span className="text-sm font-semibold text-[#1A1A1A]">{MONTH_NAMES_ID[month - 1]} {year}</span>
-        <button onClick={nextMonth} disabled={isCurrentMonth} className="p-1.5 rounded-full hover:bg-surface disabled:opacity-30">
-          <ChevronRight size={18} className="text-[#6B6B6B]" />
+        <span className="text-sm font-semibold text-[#0F172A]">{MONTH_NAMES_ID[month - 1]} {year}</span>
+        <button onClick={nextMonth} disabled={isCurrentMonth} className="p-1.5 rounded-full hover:bg-surface-2 disabled:opacity-30">
+          <ChevronRight size={18} className="text-[#64748B]" />
         </button>
       </div>
 
@@ -133,8 +133,8 @@ export default function InsightsPage() {
 
       {/* Net */}
       <div className={`rounded-card p-4 ${totalIncome - totalExpense >= 0 ? "bg-primary-light" : "bg-danger-light"}`}>
-        <p className="text-xs font-medium mb-1" style={{ color: totalIncome - totalExpense >= 0 ? "#3D8A57" : "#C94040" }}>Selisih (Tabungan)</p>
-        <p className="text-xl font-bold tabular-nums" style={{ color: totalIncome - totalExpense >= 0 ? "#3D8A57" : "#C94040" }}>
+        <p className="text-xs font-medium mb-1" style={{ color: totalIncome - totalExpense >= 0 ? "#10B981" : "#EF4444" }}>Selisih (Tabungan)</p>
+        <p className="text-xl font-bold tabular-nums" style={{ color: totalIncome - totalExpense >= 0 ? "#10B981" : "#EF4444" }}>
           {formatRupiah(Math.abs(totalIncome - totalExpense))}
           <span className="text-sm font-normal ml-1">{totalIncome - totalExpense >= 0 ? "surplus" : "defisit"}</span>
         </p>
@@ -142,8 +142,8 @@ export default function InsightsPage() {
 
       {/* Trend chart */}
       {!loading && monthlyTrend.length > 0 && (
-        <div className="bg-white rounded-card border border-[#E0E0E0] shadow-sm p-4">
-          <p className="text-sm font-semibold text-[#1A1A1A] mb-4">Tren 6 Bulan</p>
+        <div className="bg-white rounded-card border border-c-border shadow-card p-4">
+          <p className="text-sm font-semibold text-[#0F172A] mb-4">Tren 6 Bulan</p>
           <ResponsiveContainer width="100%" height={160}>
             <BarChart data={monthlyTrend} barGap={2}>
               <XAxis dataKey="month" tick={{ fontSize: 11, fill: "#6B6B6B" }} axisLine={false} tickLine={false} />
@@ -152,8 +152,8 @@ export default function InsightsPage() {
                 formatter={(v) => formatRupiah((v as number) ?? 0)}
                 contentStyle={{ fontSize: 12, borderRadius: 8, border: "1px solid #E0E0E0" }}
               />
-              <Bar dataKey="income" name="Pemasukan" fill="#68B684" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="expense" name="Pengeluaran" fill="#C94040" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="income" name="Pemasukan" fill="#10B981" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="expense" name="Pengeluaran" fill="#EF4444" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -161,8 +161,8 @@ export default function InsightsPage() {
 
       {/* Category breakdown */}
       {!loading && categorySpend.length > 0 ? (
-        <div className="bg-white rounded-card border border-[#E0E0E0] shadow-sm p-4">
-          <p className="text-sm font-semibold text-[#1A1A1A] mb-4">Pengeluaran per Kategori</p>
+        <div className="bg-white rounded-card border border-c-border shadow-card p-4">
+          <p className="text-sm font-semibold text-[#0F172A] mb-4">Pengeluaran per Kategori</p>
           <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <Pie
@@ -189,9 +189,9 @@ export default function InsightsPage() {
                 >
                   <LucideIcon name={cat.icon} size={13} style={{ color: cat.color }} />
                 </div>
-                <span className="flex-1 text-sm text-[#3D3D3D]">{cat.name}</span>
-                <span className="text-xs text-[#6B6B6B] tabular-nums">{Math.round(cat.pct * 100)}%</span>
-                <span className="text-sm font-semibold text-[#1A1A1A] tabular-nums w-28 text-right">{formatRupiah(cat.amount)}</span>
+                <span className="flex-1 text-sm text-[#334155]">{cat.name}</span>
+                <span className="text-xs text-[#64748B] tabular-nums">{Math.round(cat.pct * 100)}%</span>
+                <span className="text-sm font-semibold text-[#0F172A] tabular-nums w-28 text-right">{formatRupiah(cat.amount)}</span>
               </div>
             ))}
           </div>
@@ -199,7 +199,7 @@ export default function InsightsPage() {
       ) : !loading ? (
         <EmptyState icon="BarChart2" title="Tidak ada data" description="Belum ada pengeluaran bulan ini" compact />
       ) : (
-        <div className="h-48 bg-white rounded-card border border-[#E0E0E0] animate-pulse" />
+        <div className="h-48 bg-white rounded-card border border-c-border animate-pulse" />
       )}
     </div>
   );

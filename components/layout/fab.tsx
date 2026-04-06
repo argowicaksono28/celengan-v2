@@ -14,13 +14,12 @@ export function Fab({ onClick, className }: FabProps) {
       onClick={onClick}
       aria-label="Tambah transaksi"
       className={cn(
-        "btn-press md:hidden fixed z-40 flex items-center justify-center",
-        "w-14 h-14 rounded-full bg-primary text-white",
-        "shadow-fab hover:bg-primary-dark transition-colors",
+        "btn-press md:hidden fixed z-40 flex items-center justify-center cursor-pointer",
+        "w-14 h-14 rounded-full shadow-fab hover:shadow-card-hover transition-all",
         "bottom-[88px] right-4",
+        "hero-gradient text-white",
         className
       )}
-      style={{ boxShadow: "0 4px 12px rgba(104,182,132,0.30)" }}
     >
       <Plus size={24} strokeWidth={2.5} />
     </button>
